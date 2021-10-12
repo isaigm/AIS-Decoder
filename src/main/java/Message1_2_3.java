@@ -13,15 +13,9 @@ public class Message1_2_3  extends  Message{
     private int radio;
     @Override
     public void parse(Payload payload) throws Exception {
-        if(payload.size() != 168)
-        {
-            throw new Exception("Mensaje tipo 1, 2, o 3 de longitud erronea");
-        }
         super.parse(payload);
         status = payload.getData().getNbits(4).toInteger();
-        var s = payload.getData().getNbits(8).toInteger();
-        float turn = s / 4.733f;
-        this.turn = turn * turn;
+        turn = (float) Math.pow(payload.getData().getNbits(8).toInteger() / 4.733f, 2);
         speed = payload.getData().getNbits(10).toInteger() / 10.0f;
         accuracy = payload.getData().getNbits(1).toInteger();
         longitude = payload.getData().getNbits(28).toSignedInt() * 0.0001f / 60;;

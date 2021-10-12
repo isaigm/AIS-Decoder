@@ -12,7 +12,7 @@ public class Message12 extends Message{
         dest_mmsi = payload.getData().getNbits(30).toInteger();
         retransmit = payload.getData().getNbits(1).toInteger();
         payload.getData().getNbits(1);
-        //text = Utils.getNbits(msg, msg.length());
+        text = payload.getData().toSixBitAscii();
     }
     @Override
     public void print()

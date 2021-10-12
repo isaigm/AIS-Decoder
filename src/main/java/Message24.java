@@ -16,7 +16,6 @@ public class Message24 extends Message{
         if(partno == 0)
         {
             shipname = payload.getData().getNbits(120).toSixBitAscii();
-            payload.getData().getNbits(8); //sin usar
         }else if(partno == 1)
         {
             shiptype = payload.getData().getNbits(8).toInteger();

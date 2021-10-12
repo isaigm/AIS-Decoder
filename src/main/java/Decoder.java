@@ -1,6 +1,21 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 public class Decoder {
+
+    /*
+    Estructura de mensaje AIS
+    !AIVDM,1,1,,B,4025;PAuho;N>0NJbfMRhNA00D3l,0*66
+    Campo 1 tipo de mensaje
+    Campo 2 numero de partes en las que fue dividido este mensaje
+    Campo 3 que fragmento de mensaje es
+    Campo 4 id secuencial
+    Campo 5 codigo del canal de radio
+    Campo 6 paylooad
+    Campo 7 numero de bits de rellano
+    Campo 8 checksum
+     */
+
+
     /**
      * inicializa las estructuras de datos que se usaran en la decodificacion
      */
@@ -34,7 +49,7 @@ public class Decoder {
             messages.put(21, Message21.class);
             messages.put(22, Message22.class);
             messages.put(23, Message23.class);
-            messages.put(24, Message24.class);
+            messages.put(24, Message24.class); //tipo de mensaje 25 y 26 extremadente raro, no se han visto desde 2011 en el aishub
             messages.put(27, Message27.class);
         }
     }
@@ -46,28 +61,31 @@ public class Decoder {
             {
                 if(sentence.length() > 0)
                 {
-                    var tokens = sentence.split(",");
-                    payload.append(tokens[5], sixBitAsciiTable);
+                    var fields = sentence.split(",");
+                    payload.append(fields[5], sixBitAsciiTable);
                 }
             }
             int msgType = payload.getMsgtype();
+            if(!messages.containsKey(msgType))
+            {
+                System.out.printf("Tipo de mensaje %d no soportado\n", msgType);
+                return;
+            }
             Message msg = null;
             try {
                 msg = messages.get(msgType).getDeclaredConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
-            System.out.println("---------------------------------------------");
             try {
                 assert msg != null;
                 msg.parse(payload);
-                msg.print();
+                System.out.println(msg.toJson());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("---------------------------------------------");
         } else {
-            System.out.println("Formato invalido");
+            System.out.printf("Formato inválido: %s\n", nmeaMsg);
         }
     }
     private static HashMap<Character, Integer> sixBitAsciiTable = null; //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits

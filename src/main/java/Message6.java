@@ -98,7 +98,7 @@ public class Message6 extends Message {
             destination = data.getNbits(30).toSixBitAscii();
             lon = data.getNbits(25).toSignedInt() * 0.0001f / 60;;
             lon = data.getNbits(26).toSignedInt() * 0.0001f / 60;;
-        }else throw new Exception("Mensaje tipo 6: FID o DAC desconocidos");
+        }
     }
     @Override
     public void print()

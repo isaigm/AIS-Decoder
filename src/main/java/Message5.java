@@ -3,7 +3,7 @@ public class Message5 extends Message{
     private int imo;
     private String callsign;
     private String shipname;
-    private int shiptype;
+    private String shiptype;
     private int to_bow;
     private int to_stern;
     private int to_port;
@@ -24,7 +24,7 @@ public class Message5 extends Message{
         imo = payload.getData().getNbits(30).toInteger();
         callsign = payload.getData().getNbits(42).toSixBitAscii();
         shipname = payload.getData().getNbits(120).toSixBitAscii();
-        shiptype = payload.getData().getNbits(8).toInteger();
+        shiptype = Types.shipTypes[payload.getData().getNbits(8).toInteger()];
         to_bow = payload.getData().getNbits(9).toInteger();
         to_stern = payload.getData().getNbits(9).toInteger();
         to_port = payload.getData().getNbits(6).toInteger();
@@ -46,7 +46,7 @@ public class Message5 extends Message{
         System.out.printf("IMO: %d\n", imo);
         System.out.printf("Callsign: %s\n", callsign);
         System.out.printf("Nombre del navío: %s\n", shipname);
-        System.out.printf("Tipo de navío: %s\n", Types.shipTypes[shiptype]);
+        System.out.printf("Tipo de navío: %s\n", shiptype);
         System.out.printf("To bow: %d\n", to_bow);
         System.out.printf("To stern: %d\n", to_stern);
         System.out.printf("To port: %d\n", to_port);
@@ -118,12 +118,6 @@ public class Message5 extends Message{
     }
     public void setShipname(String shipname) {
         this.shipname = shipname;
-    }
-    public int getShiptype() {
-        return shiptype;
-    }
-    public void setShiptype(int shiptype) {
-        this.shiptype = shiptype;
     }
     public int getEpfd() {
         return epfd;

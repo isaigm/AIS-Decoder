@@ -14,7 +14,6 @@ public class Message4 extends Message{
     @Override
     public void parse(Payload payload) throws Exception
     {
-        if(payload.size() != 168) throw new Exception("Mensaje tipo 4 longitud errónea");
         super.parse(payload);
         year = payload.getData().getNbits(14).toInteger();
         month = payload.getData().getNbits(4).toInteger();

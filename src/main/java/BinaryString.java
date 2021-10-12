@@ -93,10 +93,17 @@ public class BinaryString {
         for (int idx = 0; idx + 6 < sb.length(); idx += 6) {
             int i = new BinaryString(sb.substring(left, idx + 6)).toInteger();
             left = idx + 6;
-            if(asciiTable.charAt(i) != '@')
+            char ch = asciiTable.charAt(i);
+            if(ch != '@')
             {
-                text.append(asciiTable.charAt(i));
+                text.append(ch);
             }
+        }
+        int idx = text.length() - 1;
+        while(idx >= 0 && text.charAt(idx) == ' ')
+        {
+            text.deleteCharAt(idx);
+            idx = text.length() - 1;
         }
         return text.toString();
     }

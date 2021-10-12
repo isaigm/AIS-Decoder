@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 public class Message {
     protected int msgType;
     protected int mmsi;
@@ -14,15 +16,20 @@ public class Message {
     public void setRepeat(int repeat) {
         this.repeat = repeat;
     }
-    void parse(Payload payload) throws Exception {
+    void parse(Payload payload) throws NMEAMessageException {
         msgType = payload.getData().getNbits(6).toInteger();
         repeat = payload.getData().getNbits(2).toInteger();
         mmsi = payload.getData().getNbits(30).toInteger();
+        Nav
     }
     void print()
     {
         System.out.printf("Tipo de mensaje: %d\n", msgType);
         System.out.printf("Indicador de repeticion: %d\n", repeat);
         System.out.printf("MMSI: %d\n", mmsi);
+    }
+    String toJson()
+    {
+        return new Gson().toJson(this);
     }
 }
