@@ -59,7 +59,7 @@ public class Decoder {
             boolean isMultilineSentence = false;
 
             System.out.println(nmeaMsg);
-
+            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
             var payload = new Payload();
             for(var sentence: sentences)
             {
