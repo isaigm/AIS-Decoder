@@ -54,24 +54,24 @@ public class Main {
             System.out.println("No esta abierto el socket: " + e.getMessage());
             return;
         }
-        int cnt = -1;
         while(true) {
             try {
                 String recv = readInputStream(in);
                 assert recv != null;
                 msg.append(recv);
-                boolean cf = recv.charAt(recv.length() - 1) == '\n';
-                boolean lf = recv.charAt(recv.length() - 2) == '\r';
-                if(cf || lf)
+                if(recv.length() > 2)
                 {
-                    var rawMsg = msg.toString();
-                    var fields =  rawMsg.split(",");
-                    int segments = Integer.parseInt(fields[1]);
+                    boolean cr = recv.charAt(recv.length() - 1) == '\n';
+                    boolean lf = recv.charAt(recv.length() - 2) == '\r';
+                    if(cr || lf)
+                    {
 
-                    Decoder.decode(rawMsg);
+                        Decoder.decode(msg.toString());
 
-                    msg = new StringBuilder();
+                        msg = new StringBuilder();
+                    }
                 }
+
             } catch(IOException e) {
                 System.out.println("Conexion perdida");
                 break;

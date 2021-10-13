@@ -99,13 +99,7 @@ public class BinaryString {
                 text.append(ch);
             }
         }
-        int idx = text.length() - 1;
-        while(idx >= 0 && text.charAt(idx) == ' ')
-        {
-            text.deleteCharAt(idx);
-            idx = text.length() - 1;
-        }
-        return text.toString();
+        return text.toString().trim();
     }
     public BinaryString substring(int start, int end)
     {
