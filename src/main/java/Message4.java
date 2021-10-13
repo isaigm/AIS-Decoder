@@ -12,7 +12,7 @@ public class Message4 extends Message{
     private int raim;
     private int radio;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         year = payload.getData().getNbits(14).toInteger();

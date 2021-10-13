@@ -14,8 +14,8 @@ public class Message22 extends Message{
     private int band_b;
     private int zonesize;
     @Override
-    public void parse(Payload payload) throws Exception {
-        if(payload.size() != 168) throw new Exception("Mensaje tipo 22: longitud erronea");
+    public void parse(Payload payload) throws NMEAMessageException {
+        if(payload.size() != 168) throw new NMEAMessageException("Mensaje tipo 22: longitud erronea");
         addressed = payload.getData().substring(139, 140).toInteger();
         super.parse(payload);
         payload.getData().getNbits(2);

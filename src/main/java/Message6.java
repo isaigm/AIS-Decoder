@@ -44,7 +44,7 @@ public class Message6 extends Message {
     private float longitude;
     private float latitude;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         seqno = payload.getData().getNbits(2).toInteger();

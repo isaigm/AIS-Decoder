@@ -20,7 +20,6 @@ public class Message {
         msgType = payload.getData().getNbits(6).toInteger();
         repeat = payload.getData().getNbits(2).toInteger();
         mmsi = payload.getData().getNbits(30).toInteger();
-        Nav
     }
     void print()
     {

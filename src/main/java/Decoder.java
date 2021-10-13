@@ -14,8 +14,6 @@ public class Decoder {
     Campo 7 numero de bits de rellano
     Campo 8 checksum
      */
-
-
     /**
      * inicializa las estructuras de datos que se usaran en la decodificacion
      */
@@ -54,7 +52,7 @@ public class Decoder {
         }
     }
     public static void decode(String nmeaMsg) {
-        if (nmeaMsg.matches("^(!AIVDM,\\d,\\d,.*,[abAB]?,.*,\\d\\*.*){1,2}$")) {
+        if (nmeaMsg.matches("^(!AIVDM,\\d,\\d,.*,[abAB]?,.*,\\d\\*.*\r?\n){1,2}$")) {
             var sentences = nmeaMsg.split("!AIVDM");
             var payload = new Payload();
             for(var sentence: sentences)
@@ -85,7 +83,7 @@ public class Decoder {
                 e.printStackTrace();
             }
         } else {
-            System.out.printf("Formato inválido: %s\n", nmeaMsg);
+            System.out.printf("|Formato inválido: %s|\n", nmeaMsg);
         }
     }
     private static HashMap<Character, Integer> sixBitAsciiTable = null; //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits

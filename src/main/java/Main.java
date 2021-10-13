@@ -2,10 +2,13 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.Arrays;
+
 public class Main {
     public static void main(String []args)
     {
         StringBuilder msg = new StringBuilder(); //mensaje actual
+        StringBuilder multilineSentence = new StringBuilder();
         Decoder.init();
         /*
         Decoder.decode("!AIVDM,2,1,6,B,58156:T2>weuKLpwB20t<D4r098DE`F222222216>PF8A6KT0>5QDPH0lUF`,0*62!AIVDM,2,2,6,B,88888888880,2*21");
@@ -30,7 +33,7 @@ public class Main {
         Decoder.decode("!AIVDM,1,1,,A,602a4KU29NHP04<0@0,4*78");
          */
 
-        FileReaderStream.run();
+        //FileReaderStream.run();
         Socket socket = null;
         BufferedInputStream in;
         InputStream is;
@@ -38,7 +41,7 @@ public class Main {
         // servidor que está en la misma máquina que el cliente
         // y que escucha en el puerto 4444
         try {
-            socket = new Socket("192.168.100.5", 55);
+            socket = new Socket("192.168.100.55", 2000);
             is = socket.getInputStream();
             in = new BufferedInputStream(is);
         } catch(IOException e) {
@@ -46,19 +49,27 @@ public class Main {
                 assert socket != null;
                 socket.close();
             } catch(IOException e2) {
-                System.err.println("El socket no esta cerrado :" + e2);
+                System.err.println("El socket no esta cerrado: " + e2);
             }
             System.out.println("No esta abierto el socket: " + e.getMessage());
             return;
         }
+        int cnt = -1;
         while(true) {
             try {
                 String recv = readInputStream(in);
                 assert recv != null;
                 msg.append(recv);
-                if(recv.matches(",\\d\\*.*\r\n?$"))
+                boolean cf = recv.charAt(recv.length() - 1) == '\n';
+                boolean lf = recv.charAt(recv.length() - 2) == '\r';
+                if(cf || lf)
                 {
-                    Decoder.decode(msg.toString());
+                    var rawMsg = msg.toString();
+                    var fields =  rawMsg.split(",");
+                    int segments = Integer.parseInt(fields[1]);
+
+                    Decoder.decode(rawMsg);
+
                     msg = new StringBuilder();
                 }
             } catch(IOException e) {
@@ -76,6 +87,7 @@ public class Main {
     private static String readInputStream(BufferedInputStream _in) throws IOException {
         String data = "";
         int s = _in.read();
+        data += (char) s;
         if(s == -1) return null;
         int len = _in.available();
         if(len > 0) {

@@ -15,7 +15,7 @@ public class Message18  extends Message{
     private int msg22;
     private int assigned;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         payload.getData().getNbits(8); //sin usar

@@ -16,7 +16,7 @@ public class Message20 extends Message {
     private int timeout4;
     private int increment4;
     @Override
-    public void parse(Payload payload) throws Exception {
+    public void parse(Payload payload) throws NMEAMessageException {
         super.parse(payload);
         payload.getData().getNbits(2); //sin usar
         offset1 = payload.getData().getNbits(12).toInteger();

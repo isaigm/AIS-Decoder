@@ -5,7 +5,7 @@ public class Message12 extends Message{
     private String text;
 
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         seqno = payload.getData().getNbits(2).toInteger();

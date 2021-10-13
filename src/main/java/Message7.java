@@ -8,7 +8,7 @@ public class Message7 extends Message{
     private int mmsi4;
     private int mmsiseq4;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         payload.getData().getNbits(2); // sin usar

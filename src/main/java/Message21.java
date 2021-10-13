@@ -16,7 +16,7 @@ public class Message21 extends Message{
     private int assigned;
     private String name_extension;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         aid_type =  payload.getData().getNbits(5).toInteger();

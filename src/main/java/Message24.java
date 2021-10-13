@@ -9,7 +9,7 @@ public class Message24 extends Message{
     private int to_port;
     private int to_starboard;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         partno = payload.getData().getNbits(2).toInteger();
@@ -25,7 +25,7 @@ public class Message24 extends Message{
             to_stern = payload.getData().getNbits(9).toInteger();
             to_port = payload.getData().getNbits(6).toInteger();
             to_starboard = payload.getData().getNbits(6).toInteger();
-        }else throw new Exception("Mensaje tipo 24: número de parte incorrecto");
+        }else throw new NMEAMessageException("Mensaje tipo 24: número de parte incorrecto");
     }
     @Override
     public void print()

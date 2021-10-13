@@ -108,7 +108,7 @@ public class Message8 extends Message {
 
 
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         payload.getData().getNbits(2); //sin usar

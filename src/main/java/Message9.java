@@ -11,7 +11,7 @@ public class Message9 extends Message{
     private int raim;
     private int radio;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         altitude = payload.getData().getNbits(12).toInteger();

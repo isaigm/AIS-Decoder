@@ -12,7 +12,7 @@ public class Message1_2_3  extends  Message{
     private int raim;
     private int radio;
     @Override
-    public void parse(Payload payload) throws Exception {
+    public void parse(Payload payload) throws NMEAMessageException {
         super.parse(payload);
         status = payload.getData().getNbits(4).toInteger();
         turn = (float) Math.pow(payload.getData().getNbits(8).toInteger() / 4.733f, 2);

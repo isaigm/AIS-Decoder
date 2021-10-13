@@ -18,7 +18,7 @@ public class Message19 extends Message{
     private int dte;
     private int assigned;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         reserved = payload.getData().getNbits(8).toInteger();

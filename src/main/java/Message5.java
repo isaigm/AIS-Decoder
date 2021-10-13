@@ -17,7 +17,7 @@ public class Message5 extends Message{
     private String destination;
     private int dte;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         ais_version = payload.getData().getNbits(2).toInteger();

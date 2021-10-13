@@ -9,7 +9,7 @@ public class Message27 extends Message {
     private int gnss;
     private int radio;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         accuracy = payload.getData().getNbits(1).toInteger();

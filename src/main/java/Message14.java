@@ -1,7 +1,7 @@
 public class Message14 extends Message{
     private BinaryString text;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         payload.getData().getNbits(2); //sin usar

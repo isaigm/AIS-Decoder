@@ -9,7 +9,7 @@ public class Message23 extends Message{
     private String interval;
     private int quiet;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
         payload.getData().getNbits(2); //sin usar

@@ -8,10 +8,10 @@ public class Message15 extends Message{
     private int type2_1;
     private int offset2_1;
     @Override
-    public void parse(Payload payload) throws Exception {
+    public void parse(Payload payload) throws NMEAMessageException {
         if(payload.size() != 88 || payload.size() != 160 || payload.size() != 110 || payload.size() != 112)
         {
-            throw new Exception("Mensaje tipo 15: longitud erronea");
+            throw new NMEAMessageException("Mensaje tipo 15: longitud erronea");
         }
         super.parse(payload);
         payload.getData().getNbits(2); //sin uso

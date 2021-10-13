@@ -6,9 +6,9 @@ public class Message16 extends Message{
     private int offset2;
     private int increment2;
     @Override
-    public void parse(Payload payload) throws Exception
+    public void parse(Payload payload) throws NMEAMessageException
     {
-        if(payload.size() != 96 || payload.size() != 144) throw new Exception("Mensaje tipo 16: longitud erronea");
+        if(payload.size() != 96 || payload.size() != 144) throw new NMEAMessageException("Mensaje tipo 16: longitud erronea");
         boolean twoStation = payload.size() == 144;
         super.parse(payload);
         payload.getData().getNbits(2); //sin usar
