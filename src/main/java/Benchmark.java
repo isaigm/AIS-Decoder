@@ -1,10 +1,12 @@
 import java.io.*;
 
-public class FileReaderStream {
+public class Benchmark {
     static void run()
     {
         File file = new File("/home/radar/Descargas/nmea-sample");
+        Decoder decoder = new Decoder();
         try {
+            long startTime = System.nanoTime();
             BufferedReader br = new BufferedReader(new FileReader(file));
             StringBuilder multilineSentence = new StringBuilder();
             int cnt = -1;
@@ -18,18 +20,20 @@ public class FileReaderStream {
                     {
                         cnt = segments;
                     }
-                    cnt--;
-                    if(cnt == 0)
+
+                    if(--cnt == 0)
                     {
                         cnt = -1;
-                        Decoder.decode(multilineSentence.toString());
+                        decoder.decode(multilineSentence);
                         multilineSentence = new StringBuilder();
                     }
                 }else
                 {
-                    Decoder.decode(line);
+                    decoder.decode(line);
                 }
             }
+            long endTime = System.nanoTime();
+            System.out.printf("Time elapsed: %f seconds\n", (endTime - startTime) / 1000000000.0f);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -2,14 +2,12 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String []args)
     {
         StringBuilder msg = new StringBuilder(); //mensaje actual
-        StringBuilder multilineSentence = new StringBuilder();
-        Decoder.init();
+        Decoder decoder = new Decoder();
         /*
         Decoder.decode("!AIVDM,2,1,6,B,58156:T2>weuKLpwB20t<D4r098DE`F222222216>PF8A6KT0>5QDPH0lUF`,0*62!AIVDM,2,2,6,B,88888888880,2*21");
         Decoder.decode("!AIVDM,2,1,8,A,569r?PP000000000000P4UQDr3737000000000000000040000000000,0*08!AIVDM,2,2,8,A,000000000000000,2*2C");
@@ -33,7 +31,8 @@ public class Main {
         Decoder.decode("!AIVDM,1,1,,A,602a4KU29NHP04<0@0,4*78");
          */
 
-        //FileReaderStream.run();
+        Benchmark.run();
+
         Socket socket = null;
         BufferedInputStream in;
         InputStream is;
@@ -65,9 +64,7 @@ public class Main {
                     boolean lf = recv.charAt(recv.length() - 2) == '\r';
                     if(cr || lf)
                     {
-
-                        Decoder.decode(msg.toString());
-
+                        decoder.decode(msg);
                         msg = new StringBuilder();
                     }
                 }

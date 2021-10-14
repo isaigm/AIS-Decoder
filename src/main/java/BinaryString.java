@@ -1,20 +1,20 @@
 public class BinaryString {
-    private final StringBuilder sb;
+    private final StringBuilder buffer;
     public BinaryString(String bits)
     {
-        sb = new StringBuilder(bits);
+        buffer = new StringBuilder(bits);
     }
     public BinaryString()
     {
-        sb = new StringBuilder();
+        buffer = new StringBuilder();
     }
     public void append(String bits)
     {
-        sb.append(bits);
+        buffer.append(bits);
     }
     public void append(int bit)
     {
-        sb.append(bit);
+        buffer.append(bit);
     }
     /**
      * Convierte esta cadena binaria a su representacion en decimal
@@ -23,9 +23,9 @@ public class BinaryString {
     public int toInteger()
     {
         int res = 0;
-        for (int idx = 0; idx < sb.length(); idx++) {
-            int bit = sb.charAt(idx) - '0';
-            res += bit << (sb.length() - 1 - idx);
+        for (int idx = 0; idx < buffer.length(); idx++) {
+            int bit = buffer.charAt(idx) - '0';
+            res += bit << (buffer.length() - 1 - idx);
         }
         return res;
     }
@@ -35,7 +35,7 @@ public class BinaryString {
      */
     public float toSignedInt()
     {
-        if(sb.charAt(0) == '1')
+        if(buffer.charAt(0) == '1')
         {
             deleteFirstNbits(1);
             return -1 * twosComplement().toInteger();
@@ -48,22 +48,22 @@ public class BinaryString {
      */
     public BinaryString twosComplement()
     {
-        for (int idx = 0; idx < sb.length(); idx++) {
-            int neg = sb.charAt(idx) - '0';
+        for (int idx = 0; idx < buffer.length(); idx++) {
+            int neg = buffer.charAt(idx) - '0';
             if (neg == 1) {
                 neg = 0;
             } else {
                 neg = 1;
             }
-            sb.setCharAt(idx, (char) (neg + '0'));
+            buffer.setCharAt(idx, (char) (neg + '0'));
         }
         int carry = 1;
-        for (int idx = sb.length() - 1; idx >= 0; idx--) {
-            int bit = sb.charAt(idx) - '0';
+        for (int idx = buffer.length() - 1; idx >= 0; idx--) {
+            int bit = buffer.charAt(idx) - '0';
             if (carry + bit > 1) {
-                sb.setCharAt(idx, '0');
+                buffer.setCharAt(idx, '0');
             } else {
-                sb.setCharAt(idx, '1');
+                buffer.setCharAt(idx, '1');
                 break;
             }
         }
@@ -90,8 +90,8 @@ public class BinaryString {
     public String toSixBitAscii() {
         int left = 0;
         var text = new StringBuilder();
-        for (int idx = 0; idx + 6 < sb.length(); idx += 6) {
-            int i = new BinaryString(sb.substring(left, idx + 6)).toInteger();
+        for (int idx = 0; idx + 6 < buffer.length(); idx += 6) {
+            int i = new BinaryString(buffer.substring(left, idx + 6)).toInteger();
             left = idx + 6;
             char ch = asciiTable.charAt(i);
             if(ch != '@')
@@ -103,7 +103,7 @@ public class BinaryString {
     }
     public BinaryString substring(int start, int end)
     {
-        return new BinaryString(sb.substring(start, end));
+        return new BinaryString(buffer.substring(start, end));
     }
     /**
      * Obtiene los primeros n bits de esta cadena
@@ -112,22 +112,22 @@ public class BinaryString {
      */
     public BinaryString getNbits(int n)
     {
-        String nbits = sb.substring(0, n);
+        String nbits = buffer.substring(0, n);
         deleteFirstNbits(n);
         return new BinaryString(nbits);
     }
     public void deleteFirstNbits(int n)
     {
-        sb.delete(0, n);
+        buffer.delete(0, n);
     }
     public int size()
     {
-        return sb.length();
+        return buffer.length();
     }
     @Override
     public String toString()
     {
-        return sb.toString();
+        return buffer.toString();
     }
     private static final String asciiTable = "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ !\"#$%&'()*+,-./0123456789:;<=>?";
 }

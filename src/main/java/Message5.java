@@ -24,7 +24,12 @@ public class Message5 extends Message{
         imo = payload.getData().getNbits(30).toInteger();
         callsign = payload.getData().getNbits(42).toSixBitAscii();
         shipname = payload.getData().getNbits(120).toSixBitAscii();
-        shiptype = Types.shipTypes[payload.getData().getNbits(8).toInteger()];
+        int stype = payload.getData().getNbits(8).toInteger();
+        if(stype > 99)
+        {
+            stype = 0;
+        }
+        shiptype = Types.shipTypes[stype];
         to_bow = payload.getData().getNbits(9).toInteger();
         to_stern = payload.getData().getNbits(9).toInteger();
         to_port = payload.getData().getNbits(6).toInteger();
