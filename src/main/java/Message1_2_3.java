@@ -1,5 +1,5 @@
 public class Message1_2_3  extends  Message{
-    private int status;
+    private String status;
     private float turn;
     private int accuracy;
     private float speed;
@@ -8,13 +8,24 @@ public class Message1_2_3  extends  Message{
     private float course;
     private int heading;
     private int second;
-    private int maneuver;
+    private String maneuver;
     private int raim;
     private int radio;
     @Override
     public void parse(Payload payload) throws NMEAMessageException {
+        if(payload.size() != 168)
+        {
+            throw new NMEAMessageException(String.format("Mensaje tipo 1, 2 o 3 de longitud errónea, se recibieron %d bits", payload.size()));
+        }
         super.parse(payload);
-        status = payload.getData().getNbits(4).toInteger();
+        int st = payload.getData().getNbits(4).toInteger();
+        if(st >= Types.navigationStatus.length)
+        {
+            status = Types.navigationStatus[0];
+        }else
+        {
+            status = Types.navigationStatus[st];
+        }
         turn = (float) Math.pow(payload.getData().getNbits(8).toInteger() / 4.733f, 2);
         speed = payload.getData().getNbits(10).toInteger() / 10.0f;
         accuracy = payload.getData().getNbits(1).toInteger();
@@ -23,7 +34,13 @@ public class Message1_2_3  extends  Message{
         course = payload.getData().getNbits(12).toInteger() * 0.1f;
         heading = payload.getData().getNbits(9).toInteger();
         second = payload.getData().getNbits(6).toInteger();
-        maneuver = payload.getData().getNbits(2).toInteger();
+        int mnv = payload.getData().getNbits(2).toInteger();
+        if(mnv >= Types.maneuverIndicators.length){
+            maneuver = Types.maneuverIndicators[0];
+        }else
+        {
+            maneuver = Types.maneuverIndicators[mnv];
+        }
         payload.getData().getNbits(3); //sin usar
         raim = payload.getData().getNbits(1).toInteger();
         radio = payload.getData().getNbits(19).toInteger();
@@ -32,7 +49,7 @@ public class Message1_2_3  extends  Message{
     public void print()
     {
         super.print();
-        System.out.printf("Estado de navegacion: %s\n", Types.navigationStatus[status]);
+        System.out.printf("Estado de navegacion: %s\n", status);
         System.out.printf("Velocidad de giro: %f\n", turn);
         System.out.printf("Velocidad: %f\n", speed);
         System.out.printf("Precisión de posición: %s\n", Types.possitionAccuracy[accuracy]);
@@ -41,14 +58,14 @@ public class Message1_2_3  extends  Message{
         System.out.printf("Curso: %f\n", course);
         System.out.printf("Heading: %d\n", heading);
         System.out.printf("Time stamp: %s\n", second);
-        System.out.printf("Maniobra: %s\n", Types.maneuverIndicators[maneuver]);
+        System.out.printf("Maniobra: %s\n", maneuver);
         System.out.printf("Raim: %d\n", raim);
         System.out.printf("Estado de comunicación: %d\n", radio);
     }
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
     public float getTurn() {
@@ -99,10 +116,10 @@ public class Message1_2_3  extends  Message{
     public void setSecond(int second) {
         this.second = second;
     }
-    public int getManeuver() {
+    public String getManeuver() {
         return maneuver;
     }
-    public void setManeuver(int maneuver) {
+    public void setManeuver(String maneuver) {
         this.maneuver = maneuver;
     }
     public int getRaim() {

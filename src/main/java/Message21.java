@@ -1,5 +1,5 @@
 public class Message21 extends Message{
-    private int aid_type;
+    private String aid_type;
     private String name;
     private int accuracy;
     private float longitude;
@@ -19,7 +19,14 @@ public class Message21 extends Message{
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        aid_type =  payload.getData().getNbits(5).toInteger();
+        int adt = payload.getData().getNbits(5).toInteger();
+        if(adt >= Types.navaidTypes.length)
+        {
+            aid_type = Types.navaidTypes[0];
+        }else
+        {
+            aid_type = Types.navaidTypes[adt];
+        }
         name =  payload.getData().getNbits(120).toSixBitAscii();
         accuracy =  payload.getData().getNbits(1).toInteger();
         longitude = payload.getData().getNbits(28).toSignedInt() * 0.0001f / 60;
@@ -42,7 +49,7 @@ public class Message21 extends Message{
     public void print()
     {
         super.print();
-        System.out.printf("Tipo de AID (Ayuda a la navegación): %s\n", Types.navaidTypes[aid_type]);
+        System.out.printf("Tipo de AID (Ayuda a la navegación): %s\n", aid_type);
         System.out.printf("Nombre: %s\n", name);
         System.out.printf("Precisión de posición: %s\n", Types.possitionAccuracy[accuracy]);
         System.out.printf("Longitud: %f\n", longitude);
@@ -56,10 +63,10 @@ public class Message21 extends Message{
         System.out.printf("RAIM: %d\n", raim);
         System.out.printf("Asignado: %d\n", assigned);
     }
-    public int getAid_type() {
+    public String getAid_type() {
         return aid_type;
     }
-    public void setAid_type(int aid_type) {
+    public void setAid_type(String aid_type) {
         this.aid_type = aid_type;
     }
     public String getName() {

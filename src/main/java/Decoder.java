@@ -1,4 +1,3 @@
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
@@ -16,44 +15,48 @@ public class Decoder {
     Campo 7 numero de bits de rellano
     Campo 8 checksum
      */
+
     /**
      * inicializa las estructuras de datos que se usaran en la decodificacion
      */
     public Decoder()
     {
-        sixBitAsciiTable = new HashMap<>();
-        messages = new HashMap<>();
-        String table = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW`abcdefghijklmnopqrstuvw";
-        for (int idx = 0; idx < table.length(); idx++) {
-            sixBitAsciiTable.put(table.charAt(idx), idx);
+        if(sixBitAsciiTable == null)
+        {
+            sixBitAsciiTable = new HashMap<>();
+            messages = new HashMap<>();
+            String table = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW`abcdefghijklmnopqrstuvw";
+            for (int idx = 0; idx < table.length(); idx++) {
+                sixBitAsciiTable.put(table.charAt(idx), idx);
+            }
+            messages.put(1,  Message1_2_3::new);
+            messages.put(2,  Message1_2_3::new);
+            messages.put(3,  Message1_2_3::new);
+            messages.put(4,  Message4::new);
+            messages.put(5,  Message5::new);
+            messages.put(6,  Message6::new);
+            messages.put(7,  Message7::new);
+            messages.put(8,  Message8::new);
+            messages.put(9,  Message9::new);
+            messages.put(10, Message10::new);
+            messages.put(11, Message4::new);
+            messages.put(12, Message12::new);
+            messages.put(13, Message7::new);
+            messages.put(14, Message14::new);
+            messages.put(16, Message16::new);
+            messages.put(17, Message17::new);
+            messages.put(18, Message18::new);
+            messages.put(19, Message19::new);
+            messages.put(20, Message20::new);
+            messages.put(21, Message21::new);
+            messages.put(22, Message22::new);
+            messages.put(23, Message23::new);
+            messages.put(24, Message24::new); //tipo de mensaje 25 y 26 extremadentes raro, no se han visto desde 2011 en el aishub
+            messages.put(27, Message27::new);
         }
-        messages.put(1,  Message1_2_3::new);
-        messages.put(2,  Message1_2_3::new);
-        messages.put(3,  Message1_2_3::new);
-        messages.put(4,  Message4::new);
-        messages.put(5,  Message5::new);
-        messages.put(6,  Message6::new);
-        messages.put(7,  Message7::new);
-        messages.put(8,  Message8::new);
-        messages.put(9,  Message9::new);
-        messages.put(10, Message10::new);
-        messages.put(11, Message4::new);
-        messages.put(12, Message12::new);
-        messages.put(13, Message7::new);
-        messages.put(14, Message14::new);
-        messages.put(16, Message16::new);
-        messages.put(17, Message17::new);
-        messages.put(18, Message18::new);
-        messages.put(19, Message19::new);
-        messages.put(20, Message20::new);
-        messages.put(21, Message21::new);
-        messages.put(22, Message22::new);
-        messages.put(23, Message23::new);
-        messages.put(24, Message24::new); //tipo de mensaje 25 y 26 extremadentes raro, no se han visto desde 2011 en el aishub
-        messages.put(27, Message27::new);
     }
     public  void decode(String nmeaMsg) {
-        if (nmeaMsg.matches("^(!AIVDM,\\d,\\d,.*,[abAB]?,.*,\\d\\*.*\r?\n?){1,2}$")) {
+        if (nmeaMsg.matches("^(!AIVDM,\\d,\\d,.*,[abAB]?,.*,\\d\\*.*\r?\n?)+$")) {
             var sentences = nmeaMsg.split("!AIVDM");
             boolean isMultilineSentence = false;
             var payload = new Payload();
@@ -62,20 +65,22 @@ public class Decoder {
                 if(sentence.length() > 0)
                 {
                     var fields = sentence.split(",");
-                    payload.append(fields[5], sixBitAsciiTable);
                     int segments = Integer.parseInt(fields[1]);
                     if(segments == 1)
                     {
                         Payload p = new Payload();
                         p.append(fields[5], sixBitAsciiTable);
-                        _decode(p);
+                        _decode(p, nmeaMsg);
 
-                    }else isMultilineSentence = true;
+                    }else {
+                        payload.append(fields[5], sixBitAsciiTable);
+                        isMultilineSentence = true;
+                    }
                 }
             }
             if(isMultilineSentence)
             {
-                _decode(payload);
+                _decode(payload, nmeaMsg);
             }
         } else {
             System.out.printf("Formato inválido: %s\n", nmeaMsg);
@@ -85,7 +90,7 @@ public class Decoder {
     {
         decode(msg.toString());
     }
-    private void _decode(Payload payload)
+    private void _decode(Payload payload, String msg1)
     {
         int msgType = payload.getMsgtype();
         if(isValidMsgType(msgType))
@@ -95,6 +100,7 @@ public class Decoder {
                 msg.parse(payload);
                 System.out.println(msg.toJson());
             } catch (NMEAMessageException e) {
+                System.out.println(msg1);
                 e.printStackTrace();
             }
         }
@@ -103,6 +109,6 @@ public class Decoder {
     {
         return messages.containsKey(msgtype);
     }
-    private HashMap<Character, Integer> sixBitAsciiTable = null; //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits
-    private HashMap<Integer, Supplier<Message>> messages;
+    private static HashMap<Character, Integer> sixBitAsciiTable = null; //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits
+    private static HashMap<Integer, Supplier<Message>> messages = null;
 }
