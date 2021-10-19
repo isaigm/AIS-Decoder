@@ -3,7 +3,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class Main {
     static int MAX_BUF = 65536;
@@ -59,15 +58,15 @@ public class Main {
         while(true) {
             try {
                 String recv = readInputStream(in);
-                System.out.println(recv);
                 msg.append(recv);
+                assert recv != null;
                 if(recv.length() > 2)
                 {
                     boolean cr = recv.charAt(recv.length() - 1) == '\n';
                     boolean lf = recv.charAt(recv.length() - 2) == '\r';
                     if(cr || lf)
                     {
-                        //decoder.decode(msg);
+                        decoder.decode(msg);
                         msg = new StringBuilder();
                     }
                 }
@@ -85,10 +84,18 @@ public class Main {
         }
     }
     private static String readInputStream(BufferedInputStream _in) throws IOException {
-        byte[] buff = new byte[MAX_BUF];
-        int n = _in.read(buff);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        baos.write(buff, 0, n);
-        return baos.toString();
+        String data = "";
+        int s = _in.read();
+        if(s == -1) return null;
+        data += (char) s;
+        int len = _in.available();
+        if(len > 0) {
+            byte[] byteData = new byte[len];
+            int r = _in.read(byteData);
+            if(r == -1) return null;
+            data += new String(byteData);
+        }
+        return data;
     }
+
 }

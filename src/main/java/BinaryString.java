@@ -33,7 +33,7 @@ public class BinaryString {
     /**
      * @return regresa el resultado de convertir esta cadena binaria a un numero entero con signo
      */
-    public float toSignedInt()
+    public int toSignedInt()
     {
         if(buffer.charAt(0) == '1')
         {

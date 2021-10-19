@@ -1,4 +1,4 @@
-public class Message22 extends Message{
+public class Message22 extends Message {
     private int channel_a;
     private int channel_b;
     private int txrx;

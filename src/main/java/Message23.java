@@ -1,4 +1,4 @@
-public class Message23 extends Message{
+public class Message23 extends Message {
     private float ne_lon;
     private float ne_lat;
     private float sw_lon;

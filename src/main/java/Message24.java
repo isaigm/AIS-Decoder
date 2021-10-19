@@ -1,4 +1,4 @@
-public class Message24 extends Message{
+public class Message24 extends Message {
     private int partno;
     private String shipname;
     private int shiptype;

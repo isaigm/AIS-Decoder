@@ -1,4 +1,4 @@
-public class Message19 extends Message{
+public class Message19 extends Message {
     private float speed;
     private int reserved;
     private int accuracy;

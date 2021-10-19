@@ -1,4 +1,4 @@
-public class Message10 extends Message{
+public class Message10 extends Message {
     private int dest_mmsi;
     @Override
     public void parse(Payload payload) throws NMEAMessageException

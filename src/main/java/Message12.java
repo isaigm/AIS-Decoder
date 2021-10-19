@@ -1,4 +1,4 @@
-public class Message12 extends Message{
+public class Message12 extends Message {
     private int seqno;
     private int dest_mmsi;
     private int retransmit;

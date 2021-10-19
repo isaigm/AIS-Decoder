@@ -1,4 +1,4 @@
-public class Message4 extends Message{
+public class Message4 extends Message {
     private int year;
     private int month;
     private int day;

@@ -1,4 +1,4 @@
-public class Message21 extends Message{
+public class Message21 extends Message {
     private String aid_type;
     private String name;
     private int accuracy;

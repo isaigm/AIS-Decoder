@@ -1,7 +1,7 @@
-public class Message1_2_3  extends  Message{
+public class Message1_2_3  extends Message {
     private String status;
-    private float turn;
-    private int accuracy;
+    private int turn;
+    private String accuracy;
     private float speed;
     private float longitude;
     private float latitude;
@@ -26,9 +26,16 @@ public class Message1_2_3  extends  Message{
         {
             status = Types.navigationStatus[st];
         }
-        turn = (float) Math.pow(payload.getData().getNbits(8).toInteger() / 4.733f, 2);
+        turn = payload.getData().getNbits(8).toSignedInt();
         speed = payload.getData().getNbits(10).toInteger() / 10.0f;
-        accuracy = payload.getData().getNbits(1).toInteger();
+        int acc = payload.getData().getNbits(1).toInteger();
+        if(acc >= Types.possitionAccuracy.length)
+        {
+            accuracy = Types.possitionAccuracy[0];
+        }else
+        {
+            accuracy = Types.possitionAccuracy[acc];
+        }
         longitude = payload.getData().getNbits(28).toSignedInt() * 0.0001f / 60;;
         latitude = payload.getData().getNbits(27).toSignedInt() * 0.0001f / 60;;
         course = payload.getData().getNbits(12).toInteger() * 0.1f;
@@ -50,9 +57,9 @@ public class Message1_2_3  extends  Message{
     {
         super.print();
         System.out.printf("Estado de navegacion: %s\n", status);
-        System.out.printf("Velocidad de giro: %f\n", turn);
+        System.out.printf("Velocidad de giro: %d\n", turn);
         System.out.printf("Velocidad: %f\n", speed);
-        System.out.printf("Precisión de posición: %s\n", Types.possitionAccuracy[accuracy]);
+        System.out.printf("Precisión de posición: %s\n", accuracy);
         System.out.printf("Latitud: %f\n", latitude);
         System.out.printf("Longitud: %f\n", longitude);
         System.out.printf("Curso: %f\n", course);
@@ -68,16 +75,16 @@ public class Message1_2_3  extends  Message{
     public void setStatus(String status) {
         this.status = status;
     }
-    public float getTurn() {
+    public int getTurn() {
         return turn;
     }
-    public void setTurn(float turn) {
+    public void setTurn(int turn) {
         this.turn = turn;
     }
-    public int getAccuracy() {
+    public String getAccuracy() {
         return accuracy;
     }
-    public void setAccuracy(int accuracy) {
+    public void setAccuracy(String accuracy) {
         this.accuracy = accuracy;
     }
     public float getSpeed() {

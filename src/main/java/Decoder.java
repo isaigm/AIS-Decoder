@@ -55,8 +55,9 @@ public class Decoder {
             messages.put(27, Message27::new);
         }
     }
-    public  void decode(String nmeaMsg) {
+    public Message decode(String nmeaMsg) {
         if (nmeaMsg.matches("^(!AIVDM,\\d,\\d,.*,[abAB]?,.*,\\d\\*.*\r?\n?)+$")) {
+            System.out.printf("%s\n", nmeaMsg.trim());
             var sentences = nmeaMsg.split("!AIVDM");
             boolean isMultilineSentence = false;
             var payload = new Payload();
@@ -70,7 +71,7 @@ public class Decoder {
                     {
                         Payload p = new Payload();
                         p.append(fields[5], sixBitAsciiTable);
-                        _decode(p, nmeaMsg);
+                        _decode(p);
 
                     }else {
                         payload.append(fields[5], sixBitAsciiTable);
@@ -80,17 +81,19 @@ public class Decoder {
             }
             if(isMultilineSentence)
             {
-                _decode(payload, nmeaMsg);
+                return _decode(payload);
+
             }
         } else {
             System.out.printf("Formato inválido: %s\n", nmeaMsg);
         }
+        return null;
     }
     public void decode(StringBuilder msg)
     {
         decode(msg.toString());
     }
-    private void _decode(Payload payload, String msg1)
+    private Message _decode(Payload payload)
     {
         int msgType = payload.getMsgtype();
         if(isValidMsgType(msgType))
@@ -99,16 +102,17 @@ public class Decoder {
             try {
                 msg.parse(payload);
                 System.out.println(msg.toJson());
+                return msg;
             } catch (NMEAMessageException e) {
-                System.out.println(msg1);
                 e.printStackTrace();
             }
         }
+        return null;
     }
     private boolean isValidMsgType(int msgtype)
     {
         return messages.containsKey(msgtype);
     }
-    private static HashMap<Character, Integer> sixBitAsciiTable = null; //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits
+    public static HashMap<Character, Integer> sixBitAsciiTable = null; //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits
     private static HashMap<Integer, Supplier<Message>> messages = null;
 }

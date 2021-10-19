@@ -1,4 +1,4 @@
-public class Message5 extends Message{
+public class Message5 extends Message {
     private int ais_version;
     private int imo;
     private String callsign;

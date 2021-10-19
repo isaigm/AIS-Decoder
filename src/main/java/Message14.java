@@ -1,4 +1,4 @@
-public class Message14 extends Message{
+public class Message14 extends Message {
     private BinaryString text;
     @Override
     public void parse(Payload payload) throws NMEAMessageException

@@ -1,4 +1,4 @@
-public class Message7 extends Message{
+public class Message7 extends Message {
     private int mmsi1;
     private int mmsiseq1;
     private int mmsi2;
