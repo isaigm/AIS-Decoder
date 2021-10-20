@@ -29,7 +29,7 @@ public class Decoder {
             for (int idx = 0; idx < table.length(); idx++) {
                 sixBitAsciiTable.put(table.charAt(idx), idx);
             }
-            messages.put(1,  Message1_2_3::new);
+            messages.put(1,  Message1_2_3::new); //mensaje 1, 2 y 3 tienen la misma estructura
             messages.put(2,  Message1_2_3::new);
             messages.put(3,  Message1_2_3::new);
             messages.put(4,  Message4::new);
@@ -39,10 +39,11 @@ public class Decoder {
             messages.put(8,  Message8::new);
             messages.put(9,  Message9::new);
             messages.put(10, Message10::new);
-            messages.put(11, Message4::new);
+            messages.put(11, Message4::new); //misma estructura que el mensaje 4
             messages.put(12, Message12::new);
-            messages.put(13, Message7::new);
+            messages.put(13, Message7::new); //misma estructura que el mensaje 7
             messages.put(14, Message14::new);
+            messages.put(15, Message15::new);
             messages.put(16, Message16::new);
             messages.put(17, Message17::new);
             messages.put(18, Message18::new);
@@ -51,38 +52,27 @@ public class Decoder {
             messages.put(21, Message21::new);
             messages.put(22, Message22::new);
             messages.put(23, Message23::new);
-            messages.put(24, Message24::new); //tipo de mensaje 25 y 26 extremadentes raro, no se han visto desde 2011 en el aishub
+            messages.put(24, Message24::new); //tipo de mensaje 25 y 26 extremadentes raros, no se han visto desde 2011 en el aishub
             messages.put(27, Message27::new);
         }
     }
     public Message decode(String nmeaMsg) {
         if (nmeaMsg.matches("^(!AIVDM,\\d,\\d,.*,[abAB]?,.*,\\d\\*.*\r?\n?)+$")) {
-            System.out.printf("%s\n", nmeaMsg.trim());
+            System.out.println(nmeaMsg.trim());
             var sentences = nmeaMsg.split("!AIVDM");
-            boolean isMultilineSentence = false;
-            var payload = new Payload();
-            for(var sentence: sentences)
+            if(sentences.length > 2)
             {
-                if(sentence.length() > 0)
-                {
-                    var fields = sentence.split(",");
-                    int segments = Integer.parseInt(fields[1]);
-                    if(segments == 1)
-                    {
-                        Payload p = new Payload();
-                        p.append(fields[5], sixBitAsciiTable);
-                        _decode(p);
-
-                    }else {
-                        payload.append(fields[5], sixBitAsciiTable);
-                        isMultilineSentence = true;
-                    }
+                try {
+                    return handleMultilineSentence(sentences);
+                } catch (FormatException e) {
+                    e.printStackTrace();
                 }
-            }
-            if(isMultilineSentence)
+            }else
             {
-                return _decode(payload);
-
+                Payload payload = new Payload();
+                var fields = nmeaMsg.split(",");
+                payload.append(fields[5], sixBitAsciiTable);
+                return __decode(payload);
             }
         } else {
             System.out.printf("Formato inválido: %s\n", nmeaMsg);
@@ -93,7 +83,7 @@ public class Decoder {
     {
         decode(msg.toString());
     }
-    private Message _decode(Payload payload)
+    private Message __decode(Payload payload)
     {
         int msgType = payload.getMsgtype();
         if(isValidMsgType(msgType))
@@ -108,6 +98,31 @@ public class Decoder {
             }
         }
         return null;
+    }
+    public Message handleMultilineSentence(String[] sentences) throws FormatException
+    {
+        var payload = new Payload();
+        int sgmt = 0;
+        for(var sentence: sentences)
+        {
+            if(sentence.length() > 0)
+            {
+                var fields = sentence.split(",");
+                int segments = Integer.parseInt(fields[1]);
+                int currSgmt = Integer.parseInt(fields[2]);
+                if(segments == 1) {
+                    throw new FormatException("Formato inválido, se espera un mensaje multilínea");
+                }
+                if(currSgmt - 1 != sgmt)
+                {
+                    throw new FormatException("Formato inválido, el mensaje está en desorden");
+                }
+
+                payload.append(fields[5], sixBitAsciiTable);
+                sgmt = currSgmt;
+            }
+        }
+        return __decode(payload);
     }
     private boolean isValidMsgType(int msgtype)
     {

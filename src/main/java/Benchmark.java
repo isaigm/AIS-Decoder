@@ -20,7 +20,6 @@ public class Benchmark {
                     {
                         cnt = segments;
                     }
-
                     if(--cnt == 0)
                     {
                         cnt = -1;

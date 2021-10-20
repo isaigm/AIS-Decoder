@@ -15,7 +15,7 @@ public class Message1_2_3  extends Message {
     public void parse(Payload payload) throws NMEAMessageException {
         if(payload.size() != 168)
         {
-            throw new NMEAMessageException(String.format("Mensaje tipo 1, 2 o 3 de longitud errónea, se recibieron %d bits", payload.size()));
+            throw new NMEAMessageException(String.format("Mensaje tipo 1, 2 o 3 de longitud errónea, se recibieron %d bits, la longitud debe ser de 168 bits", payload.size()));
         }
         super.parse(payload);
         int st = payload.getData().getNbits(4).toInteger();
