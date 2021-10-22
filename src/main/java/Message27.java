@@ -12,13 +12,13 @@ public class Message27 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        accuracy = payload.getData().getNbits(1).toInteger();
-        status = payload.getData().getNbits(4).toInteger();
-        longitude = payload.getData().getNbits(18).toSignedInt() * 0.0001f / 60;
-        latitude = payload.getData().getNbits(17).toSignedInt() * 0.0001f / 60;
-        speed =  payload.getData().getNbits(6).toInteger() / 10.0f;
-        course = payload.getData().getNbits(9).toInteger();
-        gnss =  payload.getData().getNbits(1).toInteger();
+        accuracy = payload.getNextNbits(1).toInteger();
+        status = payload.getNextNbits(4).toInteger();
+        longitude = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;
+        latitude = payload.getNextNbits(17).toSignedInt() * 0.0001f / 60;
+        speed =  payload.getNextNbits(6).toInteger() / 10.0f;
+        course = payload.getNextNbits(9).toInteger();
+        gnss =  payload.getNextNbits(1).toInteger();
     }
     @Override
     public void print()

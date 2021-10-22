@@ -14,16 +14,16 @@ public class Message15 extends Message {
             throw new NMEAMessageException("Mensaje tipo 15: longitud erronea");
         }
         super.parse(payload);
-        payload.getData().getNbits(2); //sin uso
-        mmsi1 = payload.getData().getNbits(30).toInteger();
-        type1_1 = payload.getData().getNbits(6).toInteger();
-        offset1_1 = payload.getData().getNbits(12).toInteger();
-        payload.getData().getNbits(2); //sin uso
-        type1_2 = payload.getData().getNbits(6).toInteger();
-        offset1_2 = payload.getData().getNbits(12).toInteger();
-        payload.getData().getNbits(2); //sin usar
-        mmsi2 = payload.getData().getNbits(30).toInteger();
-        type2_1 = payload.getData().getNbits(6).toInteger();
-        offset2_1 = payload.getData().getNbits(12).toInteger();
+        payload.getNextNbits(2); //sin uso
+        mmsi1 = payload.getNextNbits(30).toInteger();
+        type1_1 = payload.getNextNbits(6).toInteger();
+        offset1_1 = payload.getNextNbits(12).toInteger();
+        payload.getNextNbits(2); //sin uso
+        type1_2 = payload.getNextNbits(6).toInteger();
+        offset1_2 = payload.getNextNbits(12).toInteger();
+        payload.getNextNbits(2); //sin usar
+        mmsi2 = payload.getNextNbits(30).toInteger();
+        type2_1 = payload.getNextNbits(6).toInteger();
+        offset2_1 = payload.getNextNbits(12).toInteger();
     }
 }

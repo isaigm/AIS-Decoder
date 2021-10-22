@@ -11,26 +11,26 @@ public class Message7 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        payload.getData().getNbits(2); // sin usar
-        if(payload.getData().size() >= 32)
+        payload.getNextNbits(2); // sin usar
+        if(payload.getData().size() - payload.getCurrentPos() >= 32)
         {
-            mmsi1 = payload.getData().getNbits(30).toInteger();
-            mmsiseq1 = payload.getData().getNbits(2).toInteger();
+            mmsi1 = payload.getNextNbits(30).toInteger();
+            mmsiseq1 = payload.getNextNbits(2).toInteger();
         }
-        if(payload.getData().size() >= 32)
+        if(payload.getData().size() - payload.getCurrentPos() >= 32)
         {
-            mmsi2 =  payload.getData().getNbits(30).toInteger();
-            mmsiseq2 = payload.getData().getNbits(2).toInteger();
+            mmsi2 =  payload.getNextNbits(30).toInteger();
+            mmsiseq2 = payload.getNextNbits(2).toInteger();
         }
-        if(payload.getData().size() >= 32)
+        if(payload.getData().size() - payload.getCurrentPos() >= 32)
         {
-            mmsi3 = payload.getData().getNbits(30).toInteger();
-            mmsiseq3 = payload.getData().getNbits(2).toInteger();
+            mmsi3 = payload.getNextNbits(30).toInteger();
+            mmsiseq3 = payload.getNextNbits(2).toInteger();
         }
-        if(payload.getData().size() >= 32)
+        if(payload.getData().size() - payload.getCurrentPos() >= 32)
         {
-            mmsi4 = payload.getData().getNbits(30).toInteger();
-            mmsiseq4 = payload.getData().getNbits(2).toInteger();
+            mmsi4 = payload.getNextNbits(30).toInteger();
+            mmsiseq4 = payload.getNextNbits(2).toInteger();
         }
     }
     @Override

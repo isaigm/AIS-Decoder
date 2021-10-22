@@ -4,9 +4,9 @@ public class Message10 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        payload.getData().getNbits(2);//sin usar
-        dest_mmsi =  payload.getData().getNbits(30).toInteger();
-        payload.getData().getNbits(2);//sin usar
+        payload.getNextNbits(2);//sin usar
+        dest_mmsi =  payload.getNextNbits(30).toInteger();
+        payload.getNextNbits(2);//sin usar
     }
     @Override
     public void print()

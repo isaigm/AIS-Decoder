@@ -14,19 +14,19 @@ public class Message9 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        altitude = payload.getData().getNbits(12).toInteger();
-        speed = payload.getData().getNbits(10).toInteger() / 10.0f;
-        accuracy = payload.getData().getNbits(1).toInteger();
-        longitude = payload.getData().getNbits(28).toSignedInt() * 0.0001f / 60;
-        latitude = payload.getData().getNbits(27).toSignedInt() * 0.0001f / 60;
-        course = payload.getData().getNbits(12).toInteger() * 0.1f;
-        second = payload.getData().getNbits(6).toInteger();
-        payload.getData().getNbits(8);//sin usar
-        dte = payload.getData().getNbits(1).toInteger();
-        payload.getData().getNbits(3);//sin usar
-        assigned = payload.getData().getNbits(1).toInteger();
-        raim = payload.getData().getNbits(1).toInteger();
-        radio = payload.getData().getNbits(20).toInteger();
+        altitude = payload.getNextNbits(12).toInteger();
+        speed = payload.getNextNbits(10).toInteger() / 10.0f;
+        accuracy = payload.getNextNbits(1).toInteger();
+        longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;
+        latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;
+        course = payload.getNextNbits(12).toInteger() * 0.1f;
+        second = payload.getNextNbits(6).toInteger();
+        payload.getNextNbits(8);//sin usar
+        dte = payload.getNextNbits(1).toInteger();
+        payload.getNextNbits(3);//sin usar
+        assigned = payload.getNextNbits(1).toInteger();
+        raim = payload.getNextNbits(1).toInteger();
+        radio = payload.getNextNbits(20).toInteger();
     }
     @Override
     public void print(){

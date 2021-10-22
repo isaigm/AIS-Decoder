@@ -17,9 +17,9 @@ public class Message {
         this.repeat = repeat;
     }
     void parse(Payload payload) throws NMEAMessageException {
-        msgType = payload.getData().getNbits(6).toInteger();
-        repeat = payload.getData().getNbits(2).toInteger();
-        mmsi = payload.getData().getNbits(30).toInteger();
+        msgType = payload.getNextNbits(6).toInteger();
+        repeat = payload.getNextNbits(2).toInteger();
+        mmsi = payload.getNextNbits(30).toInteger();
     }
     void print()
     {

@@ -6,11 +6,11 @@ public class Message17 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        payload.getData().getNbits(2); //sin usar
-        longitude = payload.getData().getNbits(18).toSignedInt() * 0.0001f / 60;;
-        latitude = payload.getData().getNbits(17).toSignedInt() * 0.0001f / 60;
-        payload.getData().getNbits(5); //sin usar
-        data = payload.getData().getNbits(payload.size());
+        payload.getNextNbits(2); //sin usar
+        longitude = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;;
+        latitude = payload.getNextNbits(17).toSignedInt() * 0.0001f / 60;
+        payload.getNextNbits(5); //sin usar
+        data = payload.getNextNbits(payload.size() - payload.getCurrentPos());
     }
     public float getLongitude() {
         return longitude;

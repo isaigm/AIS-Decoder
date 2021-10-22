@@ -47,57 +47,57 @@ public class Message6 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        seqno = payload.getData().getNbits(2).toInteger();
-        dest_mmsi = payload.getData().getNbits(30).toInteger();
-        retransmit = payload.getData().getNbits(1).toInteger();
-        payload.getData().getNbits(1); //sin usar
-        dac = payload.getData().getNbits(10).toInteger();
-        fid = payload.getData().getNbits(6).toInteger();
-        data = payload.getData().getNbits(payload.size());
+        seqno = payload.getNextNbits(2).toInteger();
+        dest_mmsi = payload.getNextNbits(30).toInteger();
+        retransmit = payload.getNextNbits(1).toInteger();
+        payload.getNextNbits(1); //sin usar
+        dac = payload.getNextNbits(10).toInteger();
+        fid = payload.getNextNbits(6).toInteger();
+        data = payload.getNextNbits(payload.size() - payload.getCurrentPos());
         if(dac == 1 && fid == 12)
         {
-            lastport = data.getNbits(30).toSixBitAscii();
-            lmonth = data.getNbits(4).toInteger();
-            lday = data.getNbits(5).toInteger();
-            lhour = data.getNbits(5).toInteger();
-            lminute = data.getNbits(6).toInteger();
-            nextport = data.getNbits(30).toSixBitAscii();
-            nmonth = data.getNbits(4).toInteger();
-            nday = data.getNbits(5).toInteger();
-            nhour = data.getNbits(5).toInteger();
-            nminute = data.getNbits(6).toInteger();
-            dangerous = data.getNbits(120).toSixBitAscii();
-            imdcat = data.getNbits(24).toSixBitAscii();
-            unid = data.getNbits(13).toInteger();
-            amount = data.getNbits(10).toInteger();
-            unit = data.getNbits(2).toInteger();
+            lastport = payload.getNextNbits(30).toSixBitAscii();
+            lmonth = payload.getNextNbits(4).toInteger();
+            lday = payload.getNextNbits(5).toInteger();
+            lhour = payload.getNextNbits(5).toInteger();
+            lminute = payload.getNextNbits(6).toInteger();
+            nextport = payload.getNextNbits(30).toSixBitAscii();
+            nmonth = payload.getNextNbits(4).toInteger();
+            nday = payload.getNextNbits(5).toInteger();
+            nhour = payload.getNextNbits(5).toInteger();
+            nminute = payload.getNextNbits(6).toInteger();
+            dangerous = payload.getNextNbits(120).toSixBitAscii();
+            imdcat = payload.getNextNbits(24).toSixBitAscii();
+            unid = payload.getNextNbits(13).toInteger();
+            amount = payload.getNextNbits(10).toInteger();
+            unit = payload.getNextNbits(2).toInteger();
         }else if(dac == 1 && fid == 14)
         {
-            month = data.getNbits(4).toInteger();
-            day = data.getNbits(5).toInteger();
-            lat = data.getNbits(27).toSignedInt() * 0.0001f / 60;;
-            lon = data.getNbits(28).toSignedInt() * 0.0001f / 60;;
-            from_hour = data.getNbits(5).toInteger();
-            from_min = data.getNbits(6).toInteger();
-            to_hour = data.getNbits(5).toInteger();
-            to_min = data.getNbits(6).toInteger();
-            cdir = data.getNbits(9).toInteger();
-            cspeed = data.getNbits(7).toInteger() * 0.1f;
+            month = payload.getNextNbits(4).toInteger();
+            day = payload.getNextNbits(5).toInteger();
+            lat = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;;
+            lon = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;;
+            from_hour = payload.getNextNbits(5).toInteger();
+            from_min = payload.getNextNbits(6).toInteger();
+            to_hour = payload.getNextNbits(5).toInteger();
+            to_min = payload.getNextNbits(6).toInteger();
+            cdir = payload.getNextNbits(9).toInteger();
+            cspeed = payload.getNextNbits(7).toInteger() * 0.1f;
         }
         else if(dac == 1 && fid == 16)
         {
-            persons = data.getNbits(13).toInteger();
+            persons = payload.getNextNbits(13).toInteger();
         }else if(dac == 1 && fid == 18)
         {
-            linkage = data.getNbits(10).toInteger();
-            month = data.getNbits(4).toInteger();
-            day = data.getNbits(5).toInteger();
-            hour = data.getNbits(5).toInteger();
-            minute = data.getNbits(6).toInteger();
-            portname = data.getNbits(120).toSixBitAscii();
-            destination = data.getNbits(30).toSixBitAscii();
-            lon = data.getNbits(25).toSignedInt() * 0.0001f / 60;;
-            lon = data.getNbits(26).toSignedInt() * 0.0001f / 60;;
+            linkage = payload.getNextNbits(10).toInteger();
+            month = payload.getNextNbits(4).toInteger();
+            day = payload.getNextNbits(5).toInteger();
+            hour = payload.getNextNbits(5).toInteger();
+            minute = payload.getNextNbits(6).toInteger();
+            portname = payload.getNextNbits(120).toSixBitAscii();
+            destination = payload.getNextNbits(30).toSixBitAscii();
+            lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;;
+            lon = payload.getNextNbits(26).toSignedInt() * 0.0001f / 60;;
         }
     }
     @Override

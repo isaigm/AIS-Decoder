@@ -21,14 +21,9 @@ public class Decoder {
      */
     public Decoder()
     {
-        if(sixBitAsciiTable == null)
+        if(messages == null)
         {
-            sixBitAsciiTable = new HashMap<>();
             messages = new HashMap<>();
-            String table = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW`abcdefghijklmnopqrstuvw";
-            for (int idx = 0; idx < table.length(); idx++) {
-                sixBitAsciiTable.put(table.charAt(idx), idx);
-            }
             messages.put(1,  Message1_2_3::new); //mensaje 1, 2 y 3 tienen la misma estructura
             messages.put(2,  Message1_2_3::new);
             messages.put(3,  Message1_2_3::new);
@@ -71,7 +66,7 @@ public class Decoder {
             {
                 Payload payload = new Payload();
                 var fields = nmeaMsg.split(",");
-                payload.append(fields[5], sixBitAsciiTable);
+                payload.append(fields[5]);
                 return __decode(payload);
             }
         } else {
@@ -118,7 +113,7 @@ public class Decoder {
                     throw new FormatException("Formato inválido, el mensaje está en desorden");
                 }
 
-                payload.append(fields[5], sixBitAsciiTable);
+                payload.append(fields[5]);
                 sgmt = currSgmt;
             }
         }
@@ -128,6 +123,5 @@ public class Decoder {
     {
         return messages.containsKey(msgtype);
     }
-    public static HashMap<Character, Integer> sixBitAsciiTable = null; //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits
     private static HashMap<Integer, Supplier<Message>> messages = null;
 }

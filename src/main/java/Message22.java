@@ -18,25 +18,25 @@ public class Message22 extends Message {
         if(payload.size() != 168) throw new NMEAMessageException("Mensaje tipo 22: longitud erronea");
         addressed = payload.getData().substring(139, 140).toInteger();
         super.parse(payload);
-        payload.getData().getNbits(2);
-        channel_a = payload.getData().getNbits(12).toInteger();
-        channel_b = payload.getData().getNbits(12).toInteger();
-        txrx = payload.getData().getNbits(4).toInteger();
-        power = payload.getData().getNbits(1).toInteger();
+        payload.getNextNbits(2);
+        channel_a = payload.getNextNbits(12).toInteger();
+        channel_b = payload.getNextNbits(12).toInteger();
+        txrx = payload.getNextNbits(4).toInteger();
+        power = payload.getNextNbits(1).toInteger();
         if(addressed == 0)
         {
-            ne_lon = payload.getData().getNbits(18).toSignedInt() * 0.0001f / 60;
-            ne_lat = payload.getData().getNbits(17).toSignedInt() * 0.0001f / 60;
-            sw_lon = payload.getData().getNbits(18).toSignedInt() * 0.0001f / 60;
-            sw_lat = payload.getData().getNbits(17).toSignedInt();
-            payload.getData().getNbits(1);
-            band_a = payload.getData().getNbits(1).toInteger();
-            band_b = payload.getData().getNbits(1).toInteger();
-            zonesize = payload.getData().getNbits(3).toInteger();
+            ne_lon = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;
+            ne_lat = payload.getNextNbits(17).toSignedInt() * 0.0001f / 60;
+            sw_lon = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;
+            sw_lat = payload.getNextNbits(17).toSignedInt();
+            payload.getNextNbits(1);
+            band_a = payload.getNextNbits(1).toInteger();
+            band_b = payload.getNextNbits(1).toInteger();
+            zonesize = payload.getNextNbits(3).toInteger();
         }else
         {
-            dest1 =  payload.getData().getNbits(30).toInteger();
-            dest2 =  payload.getData().getNbits(30).toInteger();
+            dest1 =  payload.getNextNbits(30).toInteger();
+            dest2 =  payload.getNextNbits(30).toInteger();
         }
     }
     @Override

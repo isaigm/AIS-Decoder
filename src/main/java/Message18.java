@@ -18,24 +18,24 @@ public class Message18  extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        payload.getData().getNbits(8); //sin usar
-        speed = payload.getData().getNbits(10).toInteger() / 10.0f;
-        accuracy = payload.getData().getNbits(1).toInteger();
-        longitude =  payload.getData().getNbits(28).toSignedInt() * 0.0001f / 60;
-        latitude = payload.getData().getNbits(27).toSignedInt() * 0.0001f / 60;
-        course =  payload.getData().getNbits(12).toInteger() * 0.1f;
-        heading = payload.getData().getNbits(9).toInteger();
-        second = payload.getData().getNbits(6).toInteger();
-        payload.getData().getNbits(2); //sin usar
-        cs = payload.getData().getNbits(1).toInteger();
-        display = payload.getData().getNbits(1).toInteger();
-        dsc =  payload.getData().getNbits(1).toInteger();
-        band =  payload.getData().getNbits(1).toInteger();
-        msg22 =  payload.getData().getNbits(1).toInteger();
-        assigned =  payload.getData().getNbits(1).toInteger();
-        raim =  payload.getData().getNbits(1).toInteger();
-        payload.getData().getNbits(1);
-        radio = payload.getData().getNbits(19).toInteger();
+        payload.getNextNbits(8); //sin usar
+        speed = payload.getNextNbits(10).toInteger() / 10.0f;
+        accuracy = payload.getNextNbits(1).toInteger();
+        longitude =  payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;
+        latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;
+        course =  payload.getNextNbits(12).toInteger() * 0.1f;
+        heading = payload.getNextNbits(9).toInteger();
+        second = payload.getNextNbits(6).toInteger();
+        payload.getNextNbits(2); //sin usar
+        cs = payload.getNextNbits(1).toInteger();
+        display = payload.getNextNbits(1).toInteger();
+        dsc =  payload.getNextNbits(1).toInteger();
+        band =  payload.getNextNbits(1).toInteger();
+        msg22 =  payload.getNextNbits(1).toInteger();
+        assigned =  payload.getNextNbits(1).toInteger();
+        raim =  payload.getNextNbits(1).toInteger();
+        payload.getNextNbits(1);
+        radio = payload.getNextNbits(19).toInteger();
     }
     @Override
     public void print()

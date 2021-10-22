@@ -1,5 +1,6 @@
 public class BinaryString {
     private final StringBuilder buffer;
+    private int currentPos = 0;
     public BinaryString(String bits)
     {
         buffer = new StringBuilder(bits);
@@ -37,7 +38,7 @@ public class BinaryString {
     {
         if(buffer.charAt(0) == '1')
         {
-            deleteFirstNbits(1);
+
             return -1 * twosComplement().toInteger();
         }
         return toInteger();
@@ -105,21 +106,7 @@ public class BinaryString {
     {
         return new BinaryString(buffer.substring(start, end));
     }
-    /**
-     * Obtiene los primeros n bits de esta cadena
-     * @param n bits
-     * @return cadena binaria con los primero n bits
-     */
-    public BinaryString getNbits(int n)
-    {
-        String nbits = buffer.substring(0, n);
-        deleteFirstNbits(n);
-        return new BinaryString(nbits);
-    }
-    public void deleteFirstNbits(int n)
-    {
-        buffer.delete(0, n);
-    }
+
     public int size()
     {
         return buffer.length();

@@ -15,19 +15,19 @@ public class Message4 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        year = payload.getData().getNbits(14).toInteger();
-        month = payload.getData().getNbits(4).toInteger();
-        day = payload.getData().getNbits(5).toInteger();
-        hour = payload.getData().getNbits(5).toInteger();
-        minute = payload.getData().getNbits(6).toInteger();
-        second = payload.getData().getNbits(6).toInteger();
-        acuraccy = payload.getData().getNbits(1).toInteger();
-        longitude = payload.getData().getNbits(28).toSignedInt() * 0.0001f / 60;
-        latitude = payload.getData().getNbits(27).toSignedInt() * 0.0001f / 60;
-        epfd = payload.getData().getNbits(4).toInteger();
-        payload.getData().getNbits(10); //sin usar
-        raim = payload.getData().getNbits(1).toInteger();
-        radio = payload.getData().getNbits(19).toInteger();
+        year = payload.getNextNbits(14).toInteger();
+        month = payload.getNextNbits(4).toInteger();
+        day = payload.getNextNbits(5).toInteger();
+        hour = payload.getNextNbits(5).toInteger();
+        minute = payload.getNextNbits(6).toInteger();
+        second = payload.getNextNbits(6).toInteger();
+        acuraccy = payload.getNextNbits(1).toInteger();
+        longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;
+        latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;
+        epfd = payload.getNextNbits(4).toInteger();
+        payload.getNextNbits(10); //sin usar
+        raim = payload.getNextNbits(1).toInteger();
+        radio = payload.getNextNbits(19).toInteger();
     }
     @Override
     public void print()

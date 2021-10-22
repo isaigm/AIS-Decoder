@@ -1,7 +1,7 @@
 import java.io.*;
 
-public class Benchmark {
-    static void run()
+public class DecoderBenchmark {
+    public static void run()
     {
         File file = new File("/home/radar/Descargas/nmea-sample");
         Decoder decoder = new Decoder();
@@ -37,4 +37,5 @@ public class Benchmark {
             e.printStackTrace();
         }
     }
+
 }

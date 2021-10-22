@@ -18,7 +18,7 @@ public class Message1_2_3  extends Message {
             throw new NMEAMessageException(String.format("Mensaje tipo 1, 2 o 3 de longitud errónea, se recibieron %d bits, la longitud debe ser de 168 bits", payload.size()));
         }
         super.parse(payload);
-        int st = payload.getData().getNbits(4).toInteger();
+        int st = payload.getNextNbits(4).toInteger();
         if(st >= Types.navigationStatus.length)
         {
             status = Types.navigationStatus[0];
@@ -26,9 +26,9 @@ public class Message1_2_3  extends Message {
         {
             status = Types.navigationStatus[st];
         }
-        turn = payload.getData().getNbits(8).toSignedInt();
-        speed = payload.getData().getNbits(10).toInteger() / 10.0f;
-        int acc = payload.getData().getNbits(1).toInteger();
+        turn = payload.getNextNbits(8).toSignedInt();
+        speed = payload.getNextNbits(10).toInteger() / 10.0f;
+        int acc = payload.getNextNbits(1).toInteger();
         if(acc >= Types.possitionAccuracy.length)
         {
             accuracy = Types.possitionAccuracy[0];
@@ -36,21 +36,21 @@ public class Message1_2_3  extends Message {
         {
             accuracy = Types.possitionAccuracy[acc];
         }
-        longitude = payload.getData().getNbits(28).toSignedInt() * 0.0001f / 60;;
-        latitude = payload.getData().getNbits(27).toSignedInt() * 0.0001f / 60;;
-        course = payload.getData().getNbits(12).toInteger() * 0.1f;
-        heading = payload.getData().getNbits(9).toInteger();
-        second = payload.getData().getNbits(6).toInteger();
-        int mnv = payload.getData().getNbits(2).toInteger();
+        longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;;
+        latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;;
+        course = payload.getNextNbits(12).toInteger() * 0.1f;
+        heading = payload.getNextNbits(9).toInteger();
+        second = payload.getNextNbits(6).toInteger();
+        int mnv = payload.getNextNbits(2).toInteger();
         if(mnv >= Types.maneuverIndicators.length){
             maneuver = Types.maneuverIndicators[0];
         }else
         {
             maneuver = Types.maneuverIndicators[mnv];
         }
-        payload.getData().getNbits(3); //sin usar
-        raim = payload.getData().getNbits(1).toInteger();
-        radio = payload.getData().getNbits(19).toInteger();
+        payload.getNextNbits(3); //sin usar
+        raim = payload.getNextNbits(1).toInteger();
+        radio = payload.getNextNbits(19).toInteger();
     }
     @Override
     public void print()

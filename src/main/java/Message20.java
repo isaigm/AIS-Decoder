@@ -18,29 +18,29 @@ public class Message20 extends Message {
     @Override
     public void parse(Payload payload) throws NMEAMessageException {
         super.parse(payload);
-        payload.getData().getNbits(2); //sin usar
-        offset1 = payload.getData().getNbits(12).toInteger();
-        number1 = payload.getData().getNbits(4).toInteger();
-        timeout1 = payload.getData().getNbits(3).toInteger();
-        increment1 = payload.getData().getNbits(11).toInteger();
+        payload.getNextNbits(2); //sin usar
+        offset1 = payload.getNextNbits(12).toInteger();
+        number1 = payload.getNextNbits(4).toInteger();
+        timeout1 = payload.getNextNbits(3).toInteger();
+        increment1 = payload.getNextNbits(11).toInteger();
         if(payload.size() >= 30)
         {
-            offset2 = payload.getData().getNbits(12).toInteger();
-            number2 = payload.getData().getNbits(4).toInteger();
-            timeout2 = payload.getData().getNbits(3).toInteger();
-            increment2 = payload.getData().getNbits(11).toInteger();
+            offset2 = payload.getNextNbits(12).toInteger();
+            number2 = payload.getNextNbits(4).toInteger();
+            timeout2 = payload.getNextNbits(3).toInteger();
+            increment2 = payload.getNextNbits(11).toInteger();
         }
         if(payload.size() >= 30){
-            offset3 = payload.getData().getNbits(12).toInteger();
-            number3 = payload.getData().getNbits(4).toInteger();
-            timeout3 = payload.getData().getNbits(3).toInteger();
-            increment3 = payload.getData().getNbits(11).toInteger();
+            offset3 = payload.getNextNbits(12).toInteger();
+            number3 = payload.getNextNbits(4).toInteger();
+            timeout3 = payload.getNextNbits(3).toInteger();
+            increment3 = payload.getNextNbits(11).toInteger();
         }
         if(payload.size() >= 30){
-            offset4 = payload.getData().getNbits(12).toInteger();
-            number4 = payload.getData().getNbits(4).toInteger();
-            timeout4 = payload.getData().getNbits(3).toInteger();
-            increment4 = payload.getData().getNbits(11).toInteger();
+            offset4 = payload.getNextNbits(12).toInteger();
+            number4 = payload.getNextNbits(4).toInteger();
+            timeout4 = payload.getNextNbits(3).toInteger();
+            increment4 = payload.getNextNbits(11).toInteger();
         }
     }
     @Override

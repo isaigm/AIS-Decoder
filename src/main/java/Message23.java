@@ -12,17 +12,17 @@ public class Message23 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        payload.getData().getNbits(2); //sin usar
-        ne_lon = payload.getData().getNbits(18).toSignedInt() * 0.0001f / 60;
-        ne_lat = payload.getData().getNbits(17).toSignedInt() * 0.0001f / 60;
-        sw_lon = payload.getData().getNbits(18).toSignedInt() * 0.0001f / 60;
-        sw_lat = payload.getData().getNbits(17).toSignedInt() * 0.0001f / 60;
-        station_type = Types.stationTypes[payload.getData().getNbits(4).toInteger()];
-        ship_type = Types.shipTypes[payload.getData().getNbits(8).toInteger()];
-        payload.getData().getNbits(22); //sin usar
-        txrx = payload.getData().getNbits(2).toInteger();
-        interval = Types.intervals[payload.getData().getNbits(4).toInteger()];
-        quiet = payload.getData().getNbits(4).toInteger();
+        payload.getNextNbits(2); //sin usar
+        ne_lon = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;
+        ne_lat = payload.getNextNbits(17).toSignedInt() * 0.0001f / 60;
+        sw_lon = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;
+        sw_lat = payload.getNextNbits(17).toSignedInt() * 0.0001f / 60;
+        station_type = Types.stationTypes[payload.getNextNbits(4).toInteger()];
+        ship_type = Types.shipTypes[payload.getNextNbits(8).toInteger()];
+        payload.getNextNbits(22); //sin usar
+        txrx = payload.getNextNbits(2).toInteger();
+        interval = Types.intervals[payload.getNextNbits(4).toInteger()];
+        quiet = payload.getNextNbits(4).toInteger();
     }
     @Override
     public void print()

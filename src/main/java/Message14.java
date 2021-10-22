@@ -4,8 +4,8 @@ public class Message14 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        payload.getData().getNbits(2); //sin usar
-        text = payload.getData().getNbits(payload.size());
+        payload.getNextNbits(2); //sin usar
+        text = payload.getNextNbits(payload.size() - payload.getCurrentPos());
     }
     public BinaryString getText() {
         return text;

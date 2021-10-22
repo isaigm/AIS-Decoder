@@ -111,67 +111,67 @@ public class Message8 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        payload.getData().getNbits(2); //sin usar
-        dac =  payload.getData().getNbits(10).toInteger();
-        fid =  payload.getData().getNbits(6).toInteger();
+        payload.getNextNbits(2); //sin usar
+        dac =  payload.getNextNbits(10).toInteger();
+        fid =  payload.getNextNbits(6).toInteger();
         if(dac == 1)
         {
             if(fid == 11)
             {
-                lat = payload.getData().getNbits(24).toSignedInt() * 0.0001f / 60;;
-                lon = payload.getData().getNbits(25).toSignedInt() * 0.0001f / 60;;
-                day = payload.getData().getNbits(5).toInteger();
-                hour = payload.getData().getNbits(5).toInteger();
-                minute = payload.getData().getNbits(6).toInteger();
-                wspeed = payload.getData().getNbits(7).toInteger();
-                wgust = payload.getData().getNbits(7).toInteger();
-                wdir = payload.getData().getNbits(9).toInteger();
-                wgustdir = payload.getData().getNbits(9).toInteger();
-                temperature = payload.getData().getNbits(11).toInteger();
-                humidity = payload.getData().getNbits(7).toInteger();
-                dewpoint = payload.getData().getNbits(10).toInteger();
-                pressure = payload.getData().getNbits(9).toInteger();
-                pressuretend = payload.getData().getNbits(2).toInteger();
-                visibility = payload.getData().getNbits(8).toInteger() * 0.1f;
-                waterlevel = payload.getData().getNbits(9).toSignedInt() * 0.1f;
-                leveltrend = payload.getData().getNbits(2).toInteger();
-                cspeed = payload.getData().getNbits(8).toInteger() * 0.1f;
-                cdir = payload.getData().getNbits(9).toInteger();
-                cspeed2 = payload.getData().getNbits(8).toInteger() * 0.1f;
-                cdir2 = payload.getData().getNbits(9).toInteger();
-                cdepth2 = payload.getData().getNbits(5).toInteger() * 0.1f;
-                cspeed3 = payload.getData().getNbits(8).toInteger() * 0.1f;
-                cdir3 = payload.getData().getNbits(9).toInteger();
-                cdepth3 = payload.getData().getNbits(5).toInteger() * 0.1f;
-                waveheight = payload.getData().getNbits(8).toInteger() * 0.1f;
-                waveperiod = payload.getData().getNbits(6).toInteger();
-                wavedir = payload.getData().getNbits(9).toInteger();
-                swellheight = payload.getData().getNbits(8).toInteger() * 0.1f;
-                swellperiod = payload.getData().getNbits(6).toInteger();
-                swelldir = payload.getData().getNbits(9).toInteger();
-                seastate = payload.getData().getNbits(4).toInteger();
-                watertemp = payload.getData().getNbits(10).toSignedInt() * 0.1f;
-                preciptype = payload.getData().getNbits(3).toInteger();
-                salinity = payload.getData().getNbits(9).toInteger() * 0.1f;
-                ice = payload.getData().getNbits(2).toInteger();
+                lat = payload.getNextNbits(24).toSignedInt() * 0.0001f / 60;;
+                lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;;
+                day = payload.getNextNbits(5).toInteger();
+                hour = payload.getNextNbits(5).toInteger();
+                minute = payload.getNextNbits(6).toInteger();
+                wspeed = payload.getNextNbits(7).toInteger();
+                wgust = payload.getNextNbits(7).toInteger();
+                wdir = payload.getNextNbits(9).toInteger();
+                wgustdir = payload.getNextNbits(9).toInteger();
+                temperature = payload.getNextNbits(11).toInteger();
+                humidity = payload.getNextNbits(7).toInteger();
+                dewpoint = payload.getNextNbits(10).toInteger();
+                pressure = payload.getNextNbits(9).toInteger();
+                pressuretend = payload.getNextNbits(2).toInteger();
+                visibility = payload.getNextNbits(8).toInteger() * 0.1f;
+                waterlevel = payload.getNextNbits(9).toSignedInt() * 0.1f;
+                leveltrend = payload.getNextNbits(2).toInteger();
+                cspeed = payload.getNextNbits(8).toInteger() * 0.1f;
+                cdir = payload.getNextNbits(9).toInteger();
+                cspeed2 = payload.getNextNbits(8).toInteger() * 0.1f;
+                cdir2 = payload.getNextNbits(9).toInteger();
+                cdepth2 = payload.getNextNbits(5).toInteger() * 0.1f;
+                cspeed3 = payload.getNextNbits(8).toInteger() * 0.1f;
+                cdir3 = payload.getNextNbits(9).toInteger();
+                cdepth3 = payload.getNextNbits(5).toInteger() * 0.1f;
+                waveheight = payload.getNextNbits(8).toInteger() * 0.1f;
+                waveperiod = payload.getNextNbits(6).toInteger();
+                wavedir = payload.getNextNbits(9).toInteger();
+                swellheight = payload.getNextNbits(8).toInteger() * 0.1f;
+                swellperiod = payload.getNextNbits(6).toInteger();
+                swelldir = payload.getNextNbits(9).toInteger();
+                seastate = payload.getNextNbits(4).toInteger();
+                watertemp = payload.getNextNbits(10).toSignedInt() * 0.1f;
+                preciptype = payload.getNextNbits(3).toInteger();
+                salinity = payload.getNextNbits(9).toInteger() * 0.1f;
+                ice = payload.getNextNbits(2).toInteger();
             }else if(fid == 13)
             {
-                reason = payload.getData().getNbits(120).toSixBitAscii();
-                closefrom = payload.getData().getNbits(120).toSixBitAscii();
-                closeto = payload.getData().getNbits(120).toSixBitAscii();
-                radius = payload.getData().getNbits(10).toInteger();
-                extunit = payload.getData().getNbits(2).toInteger();
-                fday = payload.getData().getNbits(5).toInteger();
-                fmonth = payload.getData().getNbits(4).toInteger();
-                fhour = payload.getData().getNbits(5).toInteger();
-                fminute = payload.getData().getNbits(6).toInteger();
-                tday = payload.getData().getNbits(5).toInteger();
-                tmonth = payload.getData().getNbits(4).toInteger();
-                thour = payload.getData().getNbits(5).toInteger();
-                tminute = payload.getData().getNbits(6).toInteger();
+                reason = payload.getNextNbits(120).toSixBitAscii();
+                closefrom = payload.getNextNbits(120).toSixBitAscii();
+                closeto = payload.getNextNbits(120).toSixBitAscii();
+                radius = payload.getNextNbits(10).toInteger();
+                extunit = payload.getNextNbits(2).toInteger();
+                fday = payload.getNextNbits(5).toInteger();
+                fmonth = payload.getNextNbits(4).toInteger();
+                fhour = payload.getNextNbits(5).toInteger();
+                fminute = payload.getNextNbits(6).toInteger();
+                tday = payload.getNextNbits(5).toInteger();
+                tmonth = payload.getNextNbits(4).toInteger();
+                thour = payload.getNextNbits(5).toInteger();
+                tminute = payload.getNextNbits(6).toInteger();
             }else if(fid == 15)
             {
-                airdraught = payload.getData().getNbits(11).toInteger();
+                airdraught = payload.getNextNbits(11).toInteger();
             }
         }
 

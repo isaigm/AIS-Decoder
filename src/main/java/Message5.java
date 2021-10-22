@@ -20,28 +20,28 @@ public class Message5 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        ais_version = payload.getData().getNbits(2).toInteger();
-        imo = payload.getData().getNbits(30).toInteger();
-        callsign = payload.getData().getNbits(42).toSixBitAscii();
-        shipname = payload.getData().getNbits(120).toSixBitAscii();
-        int stype = payload.getData().getNbits(8).toInteger();
+        ais_version = payload.getNextNbits(2).toInteger();
+        imo = payload.getNextNbits(30).toInteger();
+        callsign = payload.getNextNbits(42).toSixBitAscii();
+        shipname = payload.getNextNbits(120).toSixBitAscii();
+        int stype = payload.getNextNbits(8).toInteger();
         if(stype > 99)
         {
             stype = 0;
         }
         shiptype = Types.shipTypes[stype];
-        to_bow = payload.getData().getNbits(9).toInteger();
-        to_stern = payload.getData().getNbits(9).toInteger();
-        to_port = payload.getData().getNbits(6).toInteger();
-        to_starboard = payload.getData().getNbits(6).toInteger();
-        epfd = payload.getData().getNbits(4).toInteger();
-        month = payload.getData().getNbits(4).toInteger();
-        day = payload.getData().getNbits(5).toInteger();
-        hour = payload.getData().getNbits(5).toInteger();
-        minute = payload.getData().getNbits(6).toInteger();
-        draught =  payload.getData().getNbits(8).toInteger();
-        destination = payload.getData().getNbits(120).toSixBitAscii();
-        dte = payload.getData().getNbits(1).toInteger();
+        to_bow = payload.getNextNbits(9).toInteger();
+        to_stern = payload.getNextNbits(9).toInteger();
+        to_port = payload.getNextNbits(6).toInteger();
+        to_starboard = payload.getNextNbits(6).toInteger();
+        epfd = payload.getNextNbits(4).toInteger();
+        month = payload.getNextNbits(4).toInteger();
+        day = payload.getNextNbits(5).toInteger();
+        hour = payload.getNextNbits(5).toInteger();
+        minute = payload.getNextNbits(6).toInteger();
+        draught =  payload.getNextNbits(8).toInteger();
+        destination = payload.getNextNbits(120).toSixBitAscii();
+        dte = payload.getNextNbits(1).toInteger();
     }
     @Override
     public void print()

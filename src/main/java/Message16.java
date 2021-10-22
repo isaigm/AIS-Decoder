@@ -11,15 +11,15 @@ public class Message16 extends Message {
         if(payload.size() != 96 || payload.size() != 144) throw new NMEAMessageException("Mensaje tipo 16: longitud erronea");
         boolean twoStation = payload.size() == 144;
         super.parse(payload);
-        payload.getData().getNbits(2); //sin usar
-        mmsi1 = payload.getData().getNbits(30).toInteger();
-        offset1 = payload.getData().getNbits(12).toInteger();
-        increment1 = payload.getData().getNbits(10).toInteger();
+        payload.getNextNbits(2); //sin usar
+        mmsi1 = payload.getNextNbits(30).toInteger();
+        offset1 = payload.getNextNbits(12).toInteger();
+        increment1 = payload.getNextNbits(10).toInteger();
         if(twoStation)
         {
-            mmsi2 = payload.getData().getNbits(30).toInteger();
-            offset2 = payload.getData().getNbits(12).toInteger();
-            increment2 = payload.getData().getNbits(10).toInteger();
+            mmsi2 = payload.getNextNbits(30).toInteger();
+            offset2 = payload.getNextNbits(12).toInteger();
+            increment2 = payload.getNextNbits(10).toInteger();
         }
     }
     public int getMmsi1() {

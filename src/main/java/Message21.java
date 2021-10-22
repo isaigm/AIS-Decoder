@@ -19,7 +19,7 @@ public class Message21 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        int adt = payload.getData().getNbits(5).toInteger();
+        int adt = payload.getNextNbits(5).toInteger();
         if(adt >= Types.navaidTypes.length)
         {
             aid_type = Types.navaidTypes[0];
@@ -27,23 +27,23 @@ public class Message21 extends Message {
         {
             aid_type = Types.navaidTypes[adt];
         }
-        name =  payload.getData().getNbits(120).toSixBitAscii();
-        accuracy =  payload.getData().getNbits(1).toInteger();
-        longitude = payload.getData().getNbits(28).toSignedInt() * 0.0001f / 60;
-        latitude = payload.getData().getNbits(27).toSignedInt() * 0.0001f / 60;
-        to_bow = payload.getData().getNbits(9).toInteger();
-        to_stern = payload.getData().getNbits(9).toInteger();
-        to_port = payload.getData().getNbits(6).toInteger();
-        to_starboard = payload.getData().getNbits(6).toInteger();
-        epfd = payload.getData().getNbits(4).toInteger();
-        second = payload.getData().getNbits(6).toInteger();
-        off_position = payload.getData().getNbits(1).toInteger();
-        payload.getData().getNbits(8); //sin interpretar
-        raim = payload.getData().getNbits(1).toInteger();
-        virtual_aid = payload.getData().getNbits(1).toInteger();
-        assigned = payload.getData().getNbits(1).toInteger();
-        payload.getData().getNbits(1); //sin usar
-        name_extension = payload.getData().getNbits(payload.size()).toSixBitAscii();
+        name =  payload.getNextNbits(120).toSixBitAscii();
+        accuracy =  payload.getNextNbits(1).toInteger();
+        longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;
+        latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;
+        to_bow = payload.getNextNbits(9).toInteger();
+        to_stern = payload.getNextNbits(9).toInteger();
+        to_port = payload.getNextNbits(6).toInteger();
+        to_starboard = payload.getNextNbits(6).toInteger();
+        epfd = payload.getNextNbits(4).toInteger();
+        second = payload.getNextNbits(6).toInteger();
+        off_position = payload.getNextNbits(1).toInteger();
+        payload.getNextNbits(8); //sin interpretar
+        raim = payload.getNextNbits(1).toInteger();
+        virtual_aid = payload.getNextNbits(1).toInteger();
+        assigned = payload.getNextNbits(1).toInteger();
+        payload.getNextNbits(1); //sin usar
+        name_extension = payload.getNextNbits(payload.size() - payload.getCurrentPos()).toSixBitAscii();
     }
     @Override
     public void print()

@@ -8,11 +8,11 @@ public class Message12 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        seqno = payload.getData().getNbits(2).toInteger();
-        dest_mmsi = payload.getData().getNbits(30).toInteger();
-        retransmit = payload.getData().getNbits(1).toInteger();
-        payload.getData().getNbits(1);
-        text = payload.getData().toSixBitAscii();
+        seqno = payload.getNextNbits(2).toInteger();
+        dest_mmsi = payload.getNextNbits(30).toInteger();
+        retransmit = payload.getNextNbits(1).toInteger();
+        payload.getNextNbits(1);
+        text = payload.getNextNbits(payload.size() - payload.getCurrentPos()).toSixBitAscii();
     }
     @Override
     public void print()

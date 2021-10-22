@@ -12,19 +12,19 @@ public class Message24 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        partno = payload.getData().getNbits(2).toInteger();
+        partno = payload.getNextNbits(2).toInteger();
         if(partno == 0)
         {
-            shipname = payload.getData().getNbits(120).toSixBitAscii();
+            shipname = payload.getNextNbits(120).toSixBitAscii();
         }else if(partno == 1)
         {
-            shiptype = payload.getData().getNbits(8).toInteger();
-            vendorid = payload.getData().getNbits(42).toSixBitAscii();
-            callsign = payload.getData().getNbits(42).toSixBitAscii();
-            to_bow = payload.getData().getNbits(9).toInteger();
-            to_stern = payload.getData().getNbits(9).toInteger();
-            to_port = payload.getData().getNbits(6).toInteger();
-            to_starboard = payload.getData().getNbits(6).toInteger();
+            shiptype = payload.getNextNbits(8).toInteger();
+            vendorid = payload.getNextNbits(42).toSixBitAscii();
+            callsign = payload.getNextNbits(42).toSixBitAscii();
+            to_bow = payload.getNextNbits(9).toInteger();
+            to_stern = payload.getNextNbits(9).toInteger();
+            to_port = payload.getNextNbits(6).toInteger();
+            to_starboard = payload.getNextNbits(6).toInteger();
         }else throw new NMEAMessageException("Mensaje tipo 24: número de parte incorrecto");
     }
     @Override
