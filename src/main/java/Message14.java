@@ -1,5 +1,5 @@
 public class Message14 extends Message {
-    private BinaryString text;
+    private BitString text;
     @Override
     public void parse(Payload payload) throws NMEAMessageException
     {
@@ -7,10 +7,10 @@ public class Message14 extends Message {
         payload.getNextNbits(2); //sin usar
         text = payload.getNextNbits(payload.size() - payload.getCurrentPos());
     }
-    public BinaryString getText() {
+    public BitString getText() {
         return text;
     }
-    public void setText(BinaryString text) {
+    public void setText(BitString text) {
         this.text = text;
     }
 }

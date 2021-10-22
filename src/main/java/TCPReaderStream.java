@@ -16,11 +16,11 @@ public class TCPReaderStream {
             String recv = null;
             try {
                 recv = readInputStream(in);
-                msg.append(recv);
                 if (recv == null || recv.length() < 2)
                     continue;
+                msg.append(recv);
                 boolean cr = recv.charAt(recv.length() - 1) == '\n'; // al final de una trama se envian los caracteres
-                                                                     // retorno de carro \n y salto de linea \r
+                                                                     // retorno de carro \n y salto de linea \r, aunque podria no estar el salto de linea
                 boolean lf = recv.charAt(recv.length() - 2) == '\r';
                 StringBuilder multilineSentence = new StringBuilder();
                 int cnt = -1;
@@ -51,8 +51,8 @@ public class TCPReaderStream {
                                 decoder.decode(line);
                             }
                         }
-                        msg = new StringBuilder();
                     }
+                    msg = new StringBuilder();
                 }
             } catch (IOException e) {
                 e.printStackTrace();

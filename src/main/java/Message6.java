@@ -4,7 +4,7 @@ public class Message6 extends Message {
     private int retransmit;
     private int dac; //codigo de area designada
     private int fid;
-    private BinaryString data;
+    private BitString data;
     //DAC = 1 FID = 12
     private String lastport;
     private int lmonth;
@@ -140,10 +140,10 @@ public class Message6 extends Message {
     public void setFid(int fid) {
         this.fid = fid;
     }
-    public BinaryString getData() {
+    public BitString getData() {
         return data;
     }
-    public void setData(BinaryString data) {
+    public void setData(BitString data) {
         this.data = data;
     }
 }

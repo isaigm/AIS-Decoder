@@ -1,7 +1,7 @@
 public class Message17 extends Message {
     private float longitude;
     private float latitude;
-    private BinaryString data;
+    private BitString data;
     @Override
     public void parse(Payload payload) throws NMEAMessageException
     {
@@ -24,10 +24,10 @@ public class Message17 extends Message {
     public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
-    public BinaryString getData() {
+    public BitString getData() {
         return data;
     }
-    public void setData(BinaryString data) {
+    public void setData(BitString data) {
         this.data = data;
     }
 }

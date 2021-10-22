@@ -1,11 +1,11 @@
-public class BinaryString {
+public class BitString {
     private final StringBuilder buffer;
     private int currentPos = 0;
-    public BinaryString(String bits)
+    public BitString(String bits)
     {
         buffer = new StringBuilder(bits);
     }
-    public BinaryString()
+    public BitString()
     {
         buffer = new StringBuilder();
     }
@@ -47,7 +47,7 @@ public class BinaryString {
      * Calcula el complemento a 2 de esta cadena binaria invirtiendo todos sus bits y sumando 1 al resultado
      * @return regresa esta misma cadena en complemento a 2
      */
-    public BinaryString twosComplement()
+    public BitString twosComplement()
     {
         for (int idx = 0; idx < buffer.length(); idx++) {
             int neg = buffer.charAt(idx) - '0';
@@ -75,9 +75,9 @@ public class BinaryString {
      * @param n un numero entero
      * @return regresa una cadena binaria
      */
-    public static BinaryString fromNumber(int n)
+    public static BitString fromNumber(int n)
     {
-        BinaryString bstring = new BinaryString();
+        BitString bstring = new BitString();
         for (int i = 0; i < 6; i++) {
             int bit = (n >> (5 - i)) & 1;
             bstring.append(bit);
@@ -92,7 +92,7 @@ public class BinaryString {
         int left = 0;
         var text = new StringBuilder();
         for (int idx = 0; idx + 6 < buffer.length(); idx += 6) {
-            int i = new BinaryString(buffer.substring(left, idx + 6)).toInteger();
+            int i = new BitString(buffer.substring(left, idx + 6)).toInteger();
             left = idx + 6;
             char ch = asciiTable.charAt(i);
             if(ch != '@')
@@ -102,9 +102,9 @@ public class BinaryString {
         }
         return text.toString().trim();
     }
-    public BinaryString substring(int start, int end)
+    public BitString substring(int start, int end)
     {
-        return new BinaryString(buffer.substring(start, end));
+        return new BitString(buffer.substring(start, end));
     }
 
     public int size()
