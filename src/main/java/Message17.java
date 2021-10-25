@@ -10,7 +10,7 @@ public class Message17 extends Message {
         longitude = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;;
         latitude = payload.getNextNbits(17).toSignedInt() * 0.0001f / 60;
         payload.getNextNbits(5); //sin usar
-        data = payload.getNextNbits(payload.size() - payload.getCurrentPos());
+        data = payload.getLastBits();
     }
     public float getLongitude() {
         return longitude;

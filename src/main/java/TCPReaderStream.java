@@ -9,13 +9,16 @@ public class TCPReaderStream {
         in = new BufferedInputStream(stream);
     }
 
+    /**
+     * Se decofidican las tramas que se iran obteniendo mediante el BufferedInputStream
+     */
     public void run() {
         StringBuilder msg = new StringBuilder();
         Decoder decoder = new Decoder();
         while (true) {
-            String recv = null;
+            String recv;
             try {
-                recv = readInputStream(in);
+                recv = readInputStream();
                 if (recv == null || recv.length() < 2)
                     continue;
                 msg.append(recv);
@@ -36,7 +39,7 @@ public class TCPReaderStream {
                             int segments = Integer.parseInt(fields[1]); // indica en cuantas partes se ha dividido el
                                                                         // mensaje
                             if (segments > 1) {
-                                multilineSentence.append(line); // aqui se toma la suposicion de que una vez se envie un
+                                multilineSentence.append("!AIVDM").append(line); // aqui se toma la suposicion de que una vez se envie un
                                                                 // mensaje multilinea, las demas partes llegaran en
                                                                 // orden
                                 if (cnt == -1) {
@@ -48,7 +51,7 @@ public class TCPReaderStream {
                                     multilineSentence = new StringBuilder();
                                 }
                             } else {
-                                decoder.decode(line);
+                                decoder.decode(new StringBuilder("!AIVDM").append(line));
                             }
                         }
                     }
@@ -60,16 +63,16 @@ public class TCPReaderStream {
         }
     }
 
-    private String readInputStream(BufferedInputStream _in) throws IOException {
+    private String readInputStream() throws IOException {
         String data = "";
-        int s = _in.read();
+        int s = in.read();
         if (s == -1)
             return null;
         data += (char) s;
-        int len = _in.available();
+        int len = in.available();
         if (len > 0) {
             byte[] byteData = new byte[len];
-            int r = _in.read(byteData);
+            int r = in.read(byteData);
             if (r == -1)
                 return null;
             data += new String(byteData);

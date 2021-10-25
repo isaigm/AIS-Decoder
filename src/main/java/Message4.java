@@ -1,3 +1,40 @@
+/*
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | Field   | Len | Description      | Member   | T  | Units                          |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 0-5     | 6   | Message Type     | type     | u  | Constant: 4                    |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 6-7     | 2   | Repeat Indicator | repeat   | u  | As in Common Navigation Block  |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 8-37    | 30  | MMSI             | mmsi     | u  | 9 decimal digits               |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 38-51   | 14  | Year (UTC)       | year     | u  | UTC, 1-9999, 0 = N/A (default) |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 52-55   | 4   | Month (UTC)      | month    | u  | 1-12; 0 = N/A (default)        |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 56-60   | 5   | Day (UTC)        | day      | u  | 1-31; 0 = N/A (default)        |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 61-65   | 5   | Hour (UTC)       | hour     | u  | 0-23; 24 = N/A (default)       |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 66-71   | 6   | Minute (UTC)     | minute   | u  | 0-59; 60 = N/A (default)       |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 72-77   | 6   | Second (UTC)     | second   | u  | 0-59; 60 = N/A (default)       |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 78-78   | 1   | Fix quality      | accuracy | b  | As in Common Navigation Block  |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 79-106  | 28  | Longitude        | lon      | I4 | As in Common Navigation Block  |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 107-133 | 27  | Latitude         | lat      | I4 | As in Common Navigation Block  |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 134-137 | 4   | Type of EPFD     | epfd     | e  | See "EPFD Fix Types"           |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 138-147 | 10  | Spare            |          | x  | Not used                       |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 148-148 | 1   | RAIM flag        | raim     | b  | As for common navigation block |
+    +---------+-----+------------------+----------+----+--------------------------------+
+    | 149-167 | 19  | SOTDMA state     | radio    | u  | As in same bits for Type 1     |
+    +---------+-----+------------------+----------+----+--------------------------------+
+ */
 public class Message4 extends Message {
     private int year;
     private int month;
@@ -8,7 +45,7 @@ public class Message4 extends Message {
     private int acuraccy;
     private float longitude;
     private float latitude ;
-    private int epfd;
+    private String epfd;
     private int raim;
     private int radio;
     @Override
@@ -24,7 +61,7 @@ public class Message4 extends Message {
         acuraccy = payload.getNextNbits(1).toInteger();
         longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;
         latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;
-        epfd = payload.getNextNbits(4).toInteger();
+        epfd = Types.getType(payload.getNextNbits(4).toInteger(), Types.epfdTypes);
         payload.getNextNbits(10); //sin usar
         raim = payload.getNextNbits(1).toInteger();
         radio = payload.getNextNbits(19).toInteger();
@@ -40,7 +77,7 @@ public class Message4 extends Message {
         System.out.printf("Segundo: %d\n", second);
         System.out.printf("Longitud: %f\n", longitude);
         System.out.printf("Latitud: %f\n", latitude);
-        System.out.printf("EPFD: %s\n", Types.epfdTypes[epfd]);
+        System.out.printf("EPFD: %s\n", epfd);
         System.out.printf("RAIM: %d\n", raim);
         System.out.printf("Estado de comunicación: %d\n", radio);
     }
@@ -98,10 +135,10 @@ public class Message4 extends Message {
     public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
-    public int getEpfd() {
+    public String getEpfd() {
         return epfd;
     }
-    public void setEpfd(int epfd) {
+    public void setEpfd(String epfd) {
         this.epfd = epfd;
     }
     public int getRaim() {

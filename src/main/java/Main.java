@@ -3,7 +3,6 @@ import java.io.InputStream;
 import java.net.Socket;
 
 public class Main {
-    static int MAX_BUF = 65536;
     public static void main(String []args) {
         StringBuilder msg = new StringBuilder(); //mensaje actual
         Decoder decoder = new Decoder();
@@ -19,7 +18,7 @@ public class Main {
         decoder.decode("!AIVDM,1,1,,B,16f=0bhP0MI8B7p:uI0pfoUh00ST,0*6F");
         decoder.decode("!AIVDM,1,1,0,B,Evkb9Mq1WV:VQ4Ph94c@6;Q@1a@;ShvA==bd`00003vP000,2*65");
         decoder.decode("!AIVDM,1,1,,B,H3tlF0TTT0000000004>M3Q<4h0,2*23");
-        //decoder.decode("!AIVDM,1,1,,B,65Ps:8=:0MjP0420<4U>1@E=B10i>04<fp0,2*23");
+        decoder.decode("!AIVDM,1,1,,B,65Ps:8=:0MjP0420<4U>1@E=B10i>04<fp0,2*23");
         decoder.decode("!AIVDM,2,1,9,A,ENk`sO70VQ97aRh1T0W72V@611@=FVj<;V5d@00003v,0*50!AIVDM,2,2,9,A,P0<M0,0*3E");
         decoder.decode("!AIVDM,1,1,6,A,F030owj2N2P6Ubib@=4q35b10000,0*74");
         decoder.decode("!AIVDM,1,1,,B,G02:KpP1R`sn@291njF00000900,2*1C");
@@ -28,7 +27,6 @@ public class Main {
         decoder.decode("!AIVDM,2,1,6,A,55NOvQP1u>QIL@O??SL985`u>0EQ18E=>222221J1p`884i6N344Sll1@m80,0*0C!AIVDM,2,2,6,A,TRA1iH88880,2*6F");
         decoder.decode("!AIVDM,2,1,1,A,<02PeAPpIkF06B?=PB?31P3?>DB?<rP@<51C5P3?>D13DPB?31P3?>DB,0*13!AIVDM,2,2,1,A,?<P?>PF86P381>>5<PoqP6?BP=1>41D?BIPB5@?BD@,4*66");
         decoder.decode("!AIVDM,1,1,,A,602a4KU29NHP04<0@0,4*78");
-
 
 
         //DecoderBenchmark.run();

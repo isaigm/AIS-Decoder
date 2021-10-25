@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 public class Payload {
-    private BitString data = null;
+    private final BitString data;
     private int currentPos = 0; //esta variable sirve para ir obteniendo cada campo del payload
     //cuando se requieren k bits, se hace currentPos += k para asi cuando se vuelvan a requerir más bits se obtengan
     //a partir de donde se quedó currentPos, por ejemplo bits = data.substring(currentPos, currentPos + k)
@@ -17,7 +17,7 @@ public class Payload {
     {
         return data;
     }
-    public int getMsgtype()
+    public int getMsgType()
     {
         return data.substring(0, 6).toInteger();
     }
@@ -47,13 +47,21 @@ public class Payload {
         }
         return new BitString("");
     }
-    public int getCurrentPos()
-    {
+    public int getCurrentPos() {
         return currentPos;
+    }
+
+    /**
+     * Regresa los ultimos bits del BitString data a partir de currentPos
+     * @return
+     */
+    public BitString getLastBits()
+    {
+        return getNextNbits(data.size() - currentPos);
     }
     public int size()
     {
         return data.size();
     }
-    private final HashMap<Character, Integer> sixBitAsciiTable = new HashMap<>();; //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits
+    private final HashMap<Character, Integer> sixBitAsciiTable = new HashMap<>(); //estructura de datos para asociar a cada caracter con su equivalente a entero de 6 bits
 }

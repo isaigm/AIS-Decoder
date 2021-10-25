@@ -1,6 +1,45 @@
-public class Message1_2_3  extends Message {
+/*
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | Field   | Len | Description              | Member   | T  | Units                                           |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 0-5     | 6   | Message Type             | type     | u  | Constant: 1-3                                   |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 6-7     | 2   | Repeat Indicator         | repeat   | u  | Message repeat count                            |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 8-37    | 30  | MMSI                     | mmsi     | u  | 9 decimal digits                                |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 38-41   | 4   | Navigation Status        | status   | e  | See "Navigation Status"""                       |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 42-49   | 8   | Rate of Turn (ROT)       | turn     | I3 | See below                                       |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 50-59   | 10  | Speed Over Ground (SOG)  | speed    | U1 | See below                                       |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 60-60   | 1   | Position Accuracy        | accuracy | b  | See below                                       |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 61-88   | 28  | Longitude                | lon      | I4 | Minutes/10000 (see below)                       |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 89-115  | 27  | Latitude                 | lat      | I4 | Minutes/10000 (see below)                       |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 116-127 | 12  | Course Over Ground (COG) | course   | U1 | Relative to true north, to 0.1 degree precision |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 128-136 | 9   | True Heading (HDG)       | heading  | u  | 0 to 359 degrees, 511 = not available.          |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 137-142 | 6   | Time Stamp               | second   | u  | Second of UTC timestamp                         |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 143-144 | 2   | Maneuver Indicator       | maneuver | e  | See "Maneuver Indicator"""                      |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 145-147 | 3   | Spare                    |          | x  | Not used                                        |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 148-148 | 1   | RAIM flag                | raim     | b  | See below                                       |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+    | 149-167 | 19  | Radio status             | radio    | u  | See below                                       |
+    +---------+-----+--------------------------+----------+----+-------------------------------------------------+
+ */
+
+public class Message1_2_3 extends Message {
     private String status;
     private int turn;
+    private String turn_description;
     private String accuracy;
     private float speed;
     private float longitude;
@@ -19,38 +58,40 @@ public class Message1_2_3  extends Message {
         }
         super.parse(payload);
         int st = payload.getNextNbits(4).toInteger();
-        if(st >= Types.navigationStatus.length)
-        {
-            status = Types.navigationStatus[0];
-        }else
-        {
-            status = Types.navigationStatus[st];
-        }
         turn = payload.getNextNbits(8).toSignedInt();
         speed = payload.getNextNbits(10).toInteger() / 10.0f;
         int acc = payload.getNextNbits(1).toInteger();
-        if(acc >= Types.possitionAccuracy.length)
-        {
-            accuracy = Types.possitionAccuracy[0];
-        }else
-        {
-            accuracy = Types.possitionAccuracy[acc];
-        }
         longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;;
         latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;;
         course = payload.getNextNbits(12).toInteger() * 0.1f;
         heading = payload.getNextNbits(9).toInteger();
         second = payload.getNextNbits(6).toInteger();
         int mnv = payload.getNextNbits(2).toInteger();
-        if(mnv >= Types.maneuverIndicators.length){
-            maneuver = Types.maneuverIndicators[0];
-        }else
-        {
-            maneuver = Types.maneuverIndicators[mnv];
-        }
         payload.getNextNbits(3); //sin usar
         raim = payload.getNextNbits(1).toInteger();
         radio = payload.getNextNbits(19).toInteger();
+        status = Types.getType(st,  Types.navigationStatus);
+        accuracy = Types.getType(acc, Types.possitionAccuracy);
+        maneuver = Types.getType(mnv, Types.maneuverIndicators);
+        if(turn == 0)
+        {
+            turn_description = "No está girando";
+        }else if(turn >= 1 && turn <= 126)
+        {
+            turn_description = "Girando a la derecha a 708 grados por minuto o más";
+        }else if(turn >= -126 && turn < 1)
+        {
+            turn_description = "Girando a la izquierda a 708 grados por minuto o más";
+        }else if(turn == 127)
+        {
+            turn_description = "Girando a la derecha a más de 5 grados cada 30 segundos";
+        }else if(turn == -127)
+        {
+            turn_description = "Girando a la izquierda a más de 5 grados cada 30 segundos";
+        }else if(turn == 128)
+        {
+            turn_description = "Sin información disponible";
+        }
     }
     @Override
     public void print()

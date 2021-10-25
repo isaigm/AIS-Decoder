@@ -20,4 +20,13 @@ public class Types {
     "Faro preffered channel starboard hand", "Faro de peligro aislado", "Faro de aguas seguras", "Faro de marca especial", "Marca cardinal norte", "Marca cardinal este", "Marca cardinal sur", "Marca cardinal oeste", "Marca port hand", "Marca starboard hand", "Preferred Channel Port hand", "Preferred Channel Starboard hand", "Peligro aislado", "Aguas seguras", "Marca especial", "Light Vessel"};
     public static final String [] stationTypes = {"Todos los tipos de estaciones moviles (Por defecto)", "Reservado para futuro uso", "Todo los tipos de clase B de estaciones moviles", "Estación de ayuda a la navegación", "Estación móvil shipborne de clase B", "Uso regional","Uso regional", "Uso regional", "Uso regional", "Reservado para futuro uso", "Reservado para futuro uso", "Reservado para futuro uso", "Reservado para futuro uso", "Reservado para futuro uso", "Reservado para futuro uso"};
     public static final String [] intervals = {"Dado por el modo autonomo", "10 minutos", "6 minutos", "3 minutos", "1 minuto", "30 segundos", "15 segundos", "10 segundos", "5 segundos", "Siguiente reporte de intervalo mas corto", "Siguiente reporte de intervalo mas largo", "Reservado para futuro uso", "Reservado para futuro uso", "Reservado para futuro uso", "Reservado para futuro uso", "Reservado para futuro uso"};
+
+    public static String getType(int idx, String [] type)
+    {
+        if(idx >= type.length)
+        {
+            return  type[0];
+        }
+        return type[idx];
+    }
 }

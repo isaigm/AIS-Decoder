@@ -48,39 +48,42 @@ public class Decoder {
             messages.put(22, Message22::new);
             messages.put(23, Message23::new);
             messages.put(24, Message24::new); //tipo de mensaje 25 y 26 extremadentes raros, no se han visto desde 2011 en el aishub
+            messages.put(25, Message25::new);
             messages.put(27, Message27::new);
         }
     }
+
+    /**
+     * Decodifica nmeaMsg
+     * @param nmeaMsg mensaje NMEA
+     * @return regresa un objeto de la clase Message, varía dependiendo del tipo de mensaje
+     */
     public Message decode(String nmeaMsg) {
         if (nmeaMsg.matches("^(!AIVDM,\\d,\\d,.*,[abAB]?,.*,\\d\\*.*\r?\n?)+$")) {
             System.out.println(nmeaMsg.trim());
             var sentences = nmeaMsg.split("!AIVDM");
-            if(sentences.length > 2)
-            {
-                try {
+            try {
+                if(sentences.length > 2)
+                {
                     return handleMultilineSentence(sentences);
-                } catch (FormatException e) {
-                    e.printStackTrace();
                 }
-            }else
-            {
                 Payload payload = new Payload();
                 var fields = nmeaMsg.split(",");
                 payload.append(fields[5]);
-                return __decode(payload);
+                return helper(payload);
+            } catch (FormatException e) {
+                e.printStackTrace();
             }
-        } else {
-            System.out.printf("Formato inválido: %s\n", nmeaMsg);
-        }
+        } else System.out.printf("Formato inválido: %s\n", nmeaMsg);
+
         return null;
     }
-    public void decode(StringBuilder msg)
+    public Message decode(StringBuilder msg)
     {
-        decode(msg.toString());
+        return decode(msg.toString());
     }
-    private Message __decode(Payload payload)
-    {
-        int msgType = payload.getMsgtype();
+    private Message helper(Payload payload) throws FormatException {
+        int msgType = payload.getMsgType();
         if(isValidMsgType(msgType))
         {
             Message msg = messages.get(msgType).get();
@@ -91,9 +94,16 @@ public class Decoder {
             } catch (NMEAMessageException e) {
                 e.printStackTrace();
             }
-        }
+        }else throw new FormatException(String.format("Mensaje de tipo %d no soportado", msgType));
         return null;
     }
+
+    /**
+     * Para decodificar un mensaje multilínea, es decir, que fue dividido en más de una parte
+     * @param sentences arreglo de sentencias NMEA
+     * @return un objeto de la clase Message
+     * @throws FormatException
+     */
     public Message handleMultilineSentence(String[] sentences) throws FormatException
     {
         var payload = new Payload();
@@ -117,7 +127,7 @@ public class Decoder {
                 sgmt = currSgmt;
             }
         }
-        return __decode(payload);
+        return helper(payload);
     }
     private boolean isValidMsgType(int msgtype)
     {

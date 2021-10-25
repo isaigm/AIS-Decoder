@@ -1,3 +1,24 @@
+/*
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | Field | Len | Description      | Member     | T | Units                                                      |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | 0-5   | 6   | Message Type     | type       | u | Constant: 12                                               |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | 6-7   | 2   | Repeat Indicator | repeat     | u | As in Common Navigation Block                              |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | 8-37  | 30  | Source MMSI      | mmsi       | u | 9 decimal digits                                           |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | 38-39 | 2   | Sequence Number  | seqno      | u | Unsigned integer 0-3                                       |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | 40-69 | 30  | Destination MMSI | dest_mmsi  | u | 9 decimal digits                                           |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | 70    | 1   | Retransmit flag  | retransmit | b | 0 = no retransmit (default), 1 = retransmitted             |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | 71    | 1   | Spare            |            | x | Not used                                                   |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+    | 72    | 936 | Text             | text       | t | 1-156 chars of six-bit text. May be shorter than 936 bits. |
+    +-------+-----+------------------+------------+---+------------------------------------------------------------+
+ */
 public class Message12 extends Message {
     private int seqno;
     private int dest_mmsi;
@@ -12,7 +33,7 @@ public class Message12 extends Message {
         dest_mmsi = payload.getNextNbits(30).toInteger();
         retransmit = payload.getNextNbits(1).toInteger();
         payload.getNextNbits(1);
-        text = payload.getNextNbits(payload.size() - payload.getCurrentPos()).toSixBitAscii();
+        text = payload.getLastBits().toSixBitAscii();
     }
     @Override
     public void print()

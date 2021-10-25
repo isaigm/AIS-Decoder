@@ -1,3 +1,50 @@
+/*
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | Field    | Len | Description            | Member       | T  | Units                     |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 0-5      | 6   | Message Type           | type         | u  | Constant: 21              |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 6-7      | 2   | Repeat Indicator       | repeat       | u  | As in CNB                 |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 8-37     | 30  | MMSI                   | mmsi         | u  | 9 digits                  |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 38-42    | 5   | Aid type               | aid_type     | e  | See "Navaid Types"        |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 43-162 1 | 120 | Name                   | name         | t  | Name in sixbit chars      |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 163-163  | 1   | Position Accuracy      | accuracy     | b  | As in CNB                 |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 164-191  | 28  | Longitude              | lon          | I4 | Minutes/10000 (as in CNB) |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 192-218  | 27  | Latitude               | lat          | I4 | Minutes/10000 (as in CNB) |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 219-227  | 9   | Dimension to Bow       | to_bow       | u  | Meters                    |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 228-236  | 9   | Dimension to Stern     | to_stern     | u  | Meters                    |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 237-242  | 6   | Dimension to Port      | to_port      | u  | Meters                    |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 243-248  | 6   | Dimension to Starboard | to_starboard | u  | Meters                    |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 249-252  | 4   | Type of EPFD           | epfd         | e  | As in Message Type 4      |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 253-258  | 6   | UTC second             | second       | u  | As in Message Types 1-3   |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 259-259  | 1   | Off-Position Indicator | off_position | b  | See Below                 |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 260-267  | 8   | Regional reserved      | regional     | u  | Uninterpreted             |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 268-268  | 1   | RAIM flag              | raim         | b  | As in CNB                 |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 269-269  | 1   | Virtual-aid flag       | virtual_aid  | b  | See Below                 |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 270-270  | 1   | Assigned-mode flag     | assigned     | b  | See [IALA] for details    |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 271-271  | 1   | Spare                  |              | x  | Not used                  |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+    | 272-360  | 88  | Name Extension         |              | t  | See Below                 |
+    +----------+-----+------------------------+--------------+----+---------------------------+
+ */
 public class Message21 extends Message {
     private String aid_type;
     private String name;
@@ -8,7 +55,7 @@ public class Message21 extends Message {
     private int to_stern;
     private int to_port;
     private int to_starboard;
-    private int epfd;
+    private String epfd;
     private int second;
     private int off_position;
     private int raim;
@@ -19,14 +66,7 @@ public class Message21 extends Message {
     public void parse(Payload payload) throws NMEAMessageException
     {
         super.parse(payload);
-        int adt = payload.getNextNbits(5).toInteger();
-        if(adt >= Types.navaidTypes.length)
-        {
-            aid_type = Types.navaidTypes[0];
-        }else
-        {
-            aid_type = Types.navaidTypes[adt];
-        }
+        aid_type = Types.getType(payload.getNextNbits(5).toInteger(), Types.navaidTypes);
         name =  payload.getNextNbits(120).toSixBitAscii();
         accuracy =  payload.getNextNbits(1).toInteger();
         longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;
@@ -35,7 +75,7 @@ public class Message21 extends Message {
         to_stern = payload.getNextNbits(9).toInteger();
         to_port = payload.getNextNbits(6).toInteger();
         to_starboard = payload.getNextNbits(6).toInteger();
-        epfd = payload.getNextNbits(4).toInteger();
+        epfd = Types.getType(payload.getNextNbits(4).toInteger(), Types.epfdTypes);
         second = payload.getNextNbits(6).toInteger();
         off_position = payload.getNextNbits(1).toInteger();
         payload.getNextNbits(8); //sin interpretar
@@ -43,7 +83,7 @@ public class Message21 extends Message {
         virtual_aid = payload.getNextNbits(1).toInteger();
         assigned = payload.getNextNbits(1).toInteger();
         payload.getNextNbits(1); //sin usar
-        name_extension = payload.getNextNbits(payload.size() - payload.getCurrentPos()).toSixBitAscii();
+        name_extension = payload.getLastBits().toSixBitAscii();
     }
     @Override
     public void print()
@@ -59,7 +99,7 @@ public class Message21 extends Message {
         System.out.printf("To port: %d\n", to_port);
         System.out.printf("To starboard: %d\n", to_starboard);
         System.out.printf("Time stamp: %d\n", second);
-        System.out.printf("EPFD: %s\n", Types.epfdTypes[epfd]);
+        System.out.printf("EPFD: %s\n", epfd);
         System.out.printf("RAIM: %d\n", raim);
         System.out.printf("Asignado: %d\n", assigned);
     }
@@ -117,10 +157,10 @@ public class Message21 extends Message {
     public void setTo_starboard(int to_starboard) {
         this.to_starboard = to_starboard;
     }
-    public int getEpfd() {
+    public String getEpfd() {
         return epfd;
     }
-    public void setEpfd(int epfd) {
+    public void setEpfd(String epfd) {
         this.epfd = epfd;
     }
     public int getSecond() {

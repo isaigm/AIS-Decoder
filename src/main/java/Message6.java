@@ -1,3 +1,28 @@
+/*
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | Field | Len | Description          | Member     | T | Units                                         |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 0-5   | 6   | Message Type         | type       | u | Constant: 6                                   |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 6-7   | 2   | Repeat Indicator     | repeat     | u | As in Common Navigation Block                 |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 8-37  | 30  | Source MMSI          | mmsi       | u | 9 decimal digits                              |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 38-39 | 2   | Sequence Number      | seqno      | u | Unsigned integer 0-3                          |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 40-69 | 30  | Destination MMSI     | dest_mmsi  | u | 9 decimal digits                              |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 70    | 1   | Retransmit flag      | retransmit | b | 0 = no retransmit (default) 1 = retransmitted |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 71    | 1   | Spare                |            | x | Not used                                      |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 72-81 | 10  | Designated Area Code | dac        | u | Unsigned integer                              |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 82-87 | 6   | Functional ID        | fid        | u | Unsigned integer                              |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+    | 88    | 920 | Data                 | data       | d | Binary data May be shorter than 920 bits.     |
+    +-------+-----+----------------------+------------+---+-----------------------------------------------+
+ */
 public class Message6 extends Message {
     private int seqno; //numero de secuencia
     private int dest_mmsi;
@@ -53,7 +78,7 @@ public class Message6 extends Message {
         payload.getNextNbits(1); //sin usar
         dac = payload.getNextNbits(10).toInteger();
         fid = payload.getNextNbits(6).toInteger();
-        data = payload.getNextNbits(payload.size() - payload.getCurrentPos());
+        data = payload.getLastBits();
         if(dac == 1 && fid == 12)
         {
             lastport = payload.getNextNbits(30).toSixBitAscii();
@@ -96,8 +121,8 @@ public class Message6 extends Message {
             minute = payload.getNextNbits(6).toInteger();
             portname = payload.getNextNbits(120).toSixBitAscii();
             destination = payload.getNextNbits(30).toSixBitAscii();
-            lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;;
-            lon = payload.getNextNbits(26).toSignedInt() * 0.0001f / 60;;
+            lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;
+            lon = payload.getNextNbits(26).toSignedInt() * 0.0001f / 60;
         }
     }
     @Override
