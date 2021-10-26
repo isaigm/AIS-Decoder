@@ -41,22 +41,22 @@ public class Message7 extends Message {
     {
         super.parse(payload);
         payload.getNextNbits(2); // sin usar
-        if(payload.getData().size() - payload.getCurrentPos() >= 32)
+        if(payload.getRemainingSize() >= 32)
         {
             mmsi1 = payload.getNextNbits(30).toInteger();
             mmsiseq1 = payload.getNextNbits(2).toInteger();
         }
-        if(payload.getData().size() - payload.getCurrentPos() >= 32)
+        if(payload.getRemainingSize() >= 32)
         {
             mmsi2 =  payload.getNextNbits(30).toInteger();
             mmsiseq2 = payload.getNextNbits(2).toInteger();
         }
-        if(payload.getData().size() - payload.getCurrentPos() >= 32)
+        if(payload.getRemainingSize() >= 32)
         {
             mmsi3 = payload.getNextNbits(30).toInteger();
             mmsiseq3 = payload.getNextNbits(2).toInteger();
         }
-        if(payload.getData().size() - payload.getCurrentPos() >= 32)
+        if(payload.getRemainingSize() >= 32)
         {
             mmsi4 = payload.getNextNbits(30).toInteger();
             mmsiseq4 = payload.getNextNbits(2).toInteger();

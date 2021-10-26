@@ -60,6 +60,6 @@ public class Message15 extends Message {
         mmsi2 = payload.getNextNbits(30).toInteger();
         type2_1 = payload.getNextNbits(6).toInteger();
         offset2_1 = payload.getNextNbits(12).toInteger();
-        
+
     }
 }

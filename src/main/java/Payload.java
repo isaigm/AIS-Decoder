@@ -47,8 +47,9 @@ public class Payload {
         }
         return new BitString("");
     }
-    public int getCurrentPos() {
-        return currentPos;
+    public int getRemainingSize()
+    {
+        return data.size() - currentPos;
     }
 
     /**

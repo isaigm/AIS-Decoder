@@ -1,6 +1,6 @@
 public class Types {
     public static final String[] navigationStatus = {"En marcha con motor", "Al ancla", "No bajo mando", "Maniobrabilidad restringida",
-                "Restringido por su calado", "Amarrado", "Encallado", "Dedicado a la pesca", "Navegando en camino", "Reservado para futuras enmiendas del estado de navegación para HSC",
+                "Restringido por su calado", "Amarrado", "Encallado", "Pescando", "Navegando en camino", "Reservado para futuras enmiendas del estado de navegación para HSC",
                 "Reservado para futuras enmiendas del estado de navegación para WIG", "Reservado para futuro uso", "Reservado para futuro uso", "Reservado para futuro uso", "AIS-SART está activo",
                 "No definido (por defecto)"};
     public static final String[] possitionAccuracy = {"Correción del GNSS no aumentada con precisión > 10 m", "Correción de la calidad del DGPS con precisión < 10 ms"};
