@@ -61,8 +61,8 @@ public class Message1_2_3 extends Message {
         turn = payload.getNextNbits(8).toSignedInt();
         speed = payload.getNextNbits(10).toInteger() / 10.0f;
         int acc = payload.getNextNbits(1).toInteger();
-        longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;;
-        latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;;
+        longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;
+        latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;
         course = payload.getNextNbits(12).toInteger() * 0.1f;
         heading = payload.getNextNbits(9).toInteger();
         second = payload.getNextNbits(6).toInteger();

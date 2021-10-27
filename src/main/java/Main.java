@@ -29,8 +29,8 @@ public class Main {
         decoder.decode("!AIVDM,1,1,,A,602a4KU29NHP04<0@0,4*78");
 
 
-        DecoderBenchmark.run();
-        /*
+        //DecoderBenchmark.run();
+
         Socket socket = null;
         TCPReaderStream tcpReaderStream;
         InputStream is;
@@ -49,7 +49,7 @@ public class Main {
             return;
         }
         tcpReaderStream.run();
-         */
+
 
 
     }

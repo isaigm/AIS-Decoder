@@ -1,6 +1,6 @@
 public class BitString {
+
     private final StringBuilder buffer;
-    private int currentPos = 0;
     public BitString(String bits)
     {
         buffer = new StringBuilder(bits);
