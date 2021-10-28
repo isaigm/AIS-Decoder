@@ -1,6 +1,5 @@
 package binary;
-
-import binary.BinaryMessage;
+import decoder.Payload;
 
 public class BinaryMessage200_55 implements BinaryMessage {
     private int crew;

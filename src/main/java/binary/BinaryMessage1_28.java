@@ -1,8 +1,7 @@
 package binary;
-
-import binary.BinaryMessage;
-
+import decoder.Payload;
 import java.util.ArrayList;
+
 public class BinaryMessage1_28 implements BinaryMessage {
     private int linkage;
     private int sender;

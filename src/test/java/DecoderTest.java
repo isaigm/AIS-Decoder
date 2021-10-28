@@ -1,5 +1,6 @@
+import decoder.Decoder;
+import messages.Message1_2_3;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class DecoderTest {
@@ -11,10 +12,10 @@ class DecoderTest {
     {
         String msg = "!AIVDM,1,1,,A,15ACeB001KI83M@:w;:b`8P<00SQ,0*2A";
         Message1_2_3 result = (Message1_2_3) decoder.decode(msg);
-        assertAll(() -> assertEquals(result.mmsi,353693000 ),
-                () -> assertEquals(result.msgType, 1),
+        assertAll(() -> assertEquals(result.getMmsi(),353693000 ),
+                () -> assertEquals(result.getMsgType(), 1),
                 () -> assertEquals(result.getStatus(), "En marcha con motor"),
-                () -> assertEquals(result.repeat, 0),
+                () -> assertEquals(result.getRepeat(), 0),
                 () -> assertEquals(result.getTurn(), 0),
                 () -> assertEquals(result.getSpeed(), 9.1f),
                 () -> assertEquals(result.getLongitude(),-96.107666f),

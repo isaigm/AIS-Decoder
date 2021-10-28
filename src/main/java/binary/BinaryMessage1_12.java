@@ -1,7 +1,5 @@
 package binary;
-
-import binary.BinaryMessage;
-
+import decoder.Payload;
 public class BinaryMessage1_12 implements BinaryMessage {
     private String lastport;
     private int lmonth;

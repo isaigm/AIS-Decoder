@@ -1,7 +1,6 @@
 package binary;
-
-import binary.BinaryMessage;
-
+import decoder.Payload;
+import decoder.BitString;
 public class BinaryMessage1_23 implements BinaryMessage {
     private int linkage;
     private int notice;

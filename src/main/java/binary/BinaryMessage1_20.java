@@ -1,6 +1,6 @@
 package binary;
+import decoder.Payload;
 
-import binary.BinaryMessage;
 
 public class BinaryMessage1_20 implements BinaryMessage {
     private int linkage;

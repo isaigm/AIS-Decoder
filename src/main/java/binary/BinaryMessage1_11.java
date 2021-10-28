@@ -1,5 +1,5 @@
 package binary;
-
+import decoder.Payload;
 
 public class BinaryMessage1_11 implements BinaryMessage {
     private float lat;

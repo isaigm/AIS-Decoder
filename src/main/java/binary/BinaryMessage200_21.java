@@ -1,6 +1,5 @@
 package binary;
-
-import binary.BinaryMessage;
+import decoder.Payload;
 
 public class BinaryMessage200_21 implements BinaryMessage {
     private String country;
