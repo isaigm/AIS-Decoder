@@ -1,5 +1,5 @@
-import decoder.Decoder;
-import messages.Message1_2_3;
+import com.rinus.decoder.Decoder;
+import com.rinus.messages.Message1_2_3;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
