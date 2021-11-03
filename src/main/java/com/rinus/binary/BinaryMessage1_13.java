@@ -1,6 +1,5 @@
 package com.rinus.binary;
 import com.rinus.decoder.Payload;
-
 public class BinaryMessage1_13 implements BinaryMessage {
     private String reason;
     private String closefrom;

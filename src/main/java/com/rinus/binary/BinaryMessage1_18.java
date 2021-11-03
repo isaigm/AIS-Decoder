@@ -19,7 +19,7 @@ public class BinaryMessage1_18 implements BinaryMessage {
         minute = payload.getNextNbits(6).toInteger();
         portname = payload.getNextNbits(120).toSixBitAscii();
         destination = payload.getNextNbits(30).toSixBitAscii();
-        lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;
-        lat = payload.getNextNbits(24).toSignedInt() * 0.0001f / 60;
+        lon = payload.getNextNbits(25).toSignedInt() / 60000f;
+        lat = payload.getNextNbits(24).toSignedInt() / 60000f;
     }
 }

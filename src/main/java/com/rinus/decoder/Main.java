@@ -29,7 +29,8 @@ public class Main {
         decoder.decode("!AIVDM,2,1,6,A,55NOvQP1u>QIL@O??SL985`u>0EQ18E=>222221J1p`884i6N344Sll1@m80,0*0C!AIVDM,2,2,6,A,TRA1iH88880,2*6F");
         decoder.decode("!AIVDM,2,1,1,A,<02PeAPpIkF06B?=PB?31P3?>DB?<rP@<51C5P3?>D13DPB?31P3?>DB,0*13!AIVDM,2,2,1,A,?<P?>PF86P381>>5<PoqP6?BP=1>41D?BIPB5@?BD@,4*66");
         decoder.decode("!AIVDM,1,1,,A,602a4KU29NHP04<0@0,4*78");
-
+        decoder.decode("!AIVDM,1,1,,B,G02:KpP1R`sn@291njF00000900,2*1C");
+        decoder.decode("!AIVDM,1,1,,A,A6WWW6gP00a3PDlEKLrarOwUr8Mg,0*03");
 
         //DecoderBenchmark.run();
 

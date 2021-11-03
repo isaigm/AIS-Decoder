@@ -14,8 +14,8 @@ public class BinaryMessage1_19 implements BinaryMessage {
     public void parse(Payload payload) {
         linkage = payload.getNextNbits(10).toInteger();
         station = payload.getNextNbits(120).toSixBitAscii();
-        lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;
-        lat = payload.getNextNbits(24).toSignedInt() * 0.0001f / 60;
+        lon = payload.getNextNbits(25).toSignedInt() / 60000f;
+        lat = payload.getNextNbits(24).toSignedInt() / 60000f;
         status = payload.getNextNbits(2).toInteger();
         signal = payload.getNextNbits(5).toInteger();
         hour = payload.getNextNbits(5).toInteger();

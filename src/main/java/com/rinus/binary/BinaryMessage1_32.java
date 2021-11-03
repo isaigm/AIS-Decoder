@@ -13,8 +13,8 @@ public class BinaryMessage1_32 implements BinaryMessage {
         while (payload.getRemainingSize() >= 88)
         {
             Tidal tidal = new Tidal();
-            tidal.lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;
-            tidal.lat = payload.getNextNbits(24).toSignedInt() * 0.0001f / 60;
+            tidal.lon = payload.getNextNbits(25).toSignedInt() / 60000f;
+            tidal.lat = payload.getNextNbits(24).toSignedInt() / 60000f;
             tidal.from_hour = payload.getNextNbits(5).toInteger();
             tidal.from_min = payload.getNextNbits(6).toInteger();
             tidal.to_hour = payload.getNextNbits(5).toInteger();

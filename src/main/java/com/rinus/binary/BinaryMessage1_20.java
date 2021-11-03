@@ -78,7 +78,7 @@ public class BinaryMessage1_20 implements BinaryMessage {
         future1 = payload.getNextNbits(2).toInteger();
         future2 = payload.getNextNbits(2).toInteger();
         berth_name = payload.getNextNbits(120).toSixBitAscii();
-        berth_lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;
-        berth_lat = payload.getNextNbits(24).toSignedInt() * 0.0001f / 60;
+        berth_lon = payload.getNextNbits(25).toSignedInt() / 60000f;
+        berth_lat = payload.getNextNbits(24).toSignedInt() / 60000f;
     }
 }

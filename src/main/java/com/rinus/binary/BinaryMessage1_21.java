@@ -69,8 +69,8 @@ public class BinaryMessage1_21 implements BinaryMessage {
         if(wmo == 0)
         {
             location = payload.getNextNbits(120).toSixBitAscii();
-            lon = payload.getNextNbits(25).toSignedInt() * 0.0001f / 60;
-            lat = payload.getNextNbits(24).toSignedInt() * 0.0001f / 60;
+            lon = payload.getNextNbits(25).toSignedInt() / 60000f;
+            lat = payload.getNextNbits(24).toSignedInt() / 60000f;
             day = payload.getNextNbits(5).toInteger();
             hour = payload.getNextNbits(5).toInteger();
             minute = payload.getNextNbits(6).toInteger();

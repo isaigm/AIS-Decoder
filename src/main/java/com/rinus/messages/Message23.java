@@ -52,10 +52,10 @@ public class Message23 extends Message {
     {
         super.parse(payload);
         payload.getNextNbits(2); //sin usar
-        ne_lon = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;
-        ne_lat = payload.getNextNbits(17).toSignedInt() * 0.0001f / 60;
-        sw_lon = payload.getNextNbits(18).toSignedInt() * 0.0001f / 60;
-        sw_lat = payload.getNextNbits(17).toSignedInt() * 0.0001f / 60;
+        ne_lon = payload.getNextNbits(18).toSignedInt() / 600f;
+        ne_lat = payload.getNextNbits(17).toSignedInt() / 600f;
+        sw_lon = payload.getNextNbits(18).toSignedInt() / 600f;
+        sw_lat = payload.getNextNbits(17).toSignedInt() / 600f;
         station_type = Types.getType(payload.getNextNbits(4).toInteger(), Types.stationTypes);
         ship_type = Types.getType(payload.getNextNbits(8).toInteger(), Types.shipTypes);
         payload.getNextNbits(22); //sin usar
