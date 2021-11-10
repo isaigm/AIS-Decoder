@@ -48,10 +48,12 @@ public class Message15 extends Message {
     private int offset2_1;
     @Override
     public void parse(Payload payload) throws NMEAMessageException {
+
+        /*
         if(payload.size() != 88 || payload.size() != 160 || payload.size() != 110 || payload.size() != 112)
         {
             throw new NMEAMessageException("Mensaje tipo 15: longitud erronea");
-        }
+        }*/
         super.parse(payload);
         payload.getNextNbits(2); //sin uso
         mmsi1 = payload.getNextNbits(30).toInteger();
@@ -65,5 +67,37 @@ public class Message15 extends Message {
         type2_1 = payload.getNextNbits(6).toInteger();
         offset2_1 = payload.getNextNbits(12).toInteger();
 
+    }
+
+    public int getMmsi1() {
+        return mmsi1;
+    }
+
+    public int getType1_1() {
+        return type1_1;
+    }
+
+    public int getOffset1_1() {
+        return offset1_1;
+    }
+
+    public int getType1_2() {
+        return type1_2;
+    }
+
+    public int getOffset1_2() {
+        return offset1_2;
+    }
+
+    public int getMmsi2() {
+        return mmsi2;
+    }
+
+    public int getType2_1() {
+        return type2_1;
+    }
+
+    public int getOffset2_1() {
+        return offset2_1;
     }
 }

@@ -37,11 +37,10 @@
  */
 package com.rinus.messages;
 import com.rinus.decoder.Payload;
-import com.rinus.messages.Message;
 
 public class Message9 extends Message {
     private int altitude;
-    private float speed;
+    private int speed;
     private int accuracy;
     private float longitude;
     private float latitude;
@@ -56,7 +55,7 @@ public class Message9 extends Message {
     {
         super.parse(payload);
         altitude = payload.getNextNbits(12).toInteger();
-        speed = payload.getNextNbits(10).toInteger() / 10.0f;
+        speed = payload.getNextNbits(10).toInteger();
         accuracy = payload.getNextNbits(1).toInteger();
         longitude = payload.getNextNbits(28).toSignedInt() * 0.0001f / 60;
         latitude = payload.getNextNbits(27).toSignedInt() * 0.0001f / 60;
@@ -92,11 +91,11 @@ public class Message9 extends Message {
         this.altitude = altitude;
     }
 
-    public float getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(float speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 

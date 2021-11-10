@@ -206,4 +206,5 @@ public class Message5 extends Message {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+    public String getShiptype() { return shiptype;}
 }

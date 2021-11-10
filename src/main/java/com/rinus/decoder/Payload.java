@@ -32,6 +32,11 @@ public class Payload {
         }
         return new BitString("");
     }
+
+    /**
+     * regresa la cantidad de bits que quedan por obtener
+     * @return
+     */
     public int getRemainingSize()
     {
         return data.size() - currentPos;

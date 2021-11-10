@@ -19,7 +19,6 @@
  */
 package com.rinus.messages;
 import com.rinus.decoder.Payload;
-import com.rinus.messages.Message;
 
 public class Message8 extends Message {
     private int dac;
@@ -55,4 +54,7 @@ public class Message8 extends Message {
     }
 
 
+    public Payload getPayload() {
+        return data;
+    }
 }
