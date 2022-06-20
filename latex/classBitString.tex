@@ -1,0 +1,94 @@
+\hypertarget{classBitString}{}\doxysection{Bit\+String Class Reference}
+\label{classBitString}\index{BitString@{BitString}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBitString_a397369ff23d561a820197ab99700b16e}\label{classBitString_a397369ff23d561a820197ab99700b16e}} 
+{\bfseries Bit\+String} (String bits)
+\item 
+\mbox{\Hypertarget{classBitString_af8433d3f834c5858f173ad3de9ea1b4c}\label{classBitString_af8433d3f834c5858f173ad3de9ea1b4c}} 
+void {\bfseries append} (String bits)
+\item 
+\mbox{\Hypertarget{classBitString_a33b1be41479a042163dfe7177b958729}\label{classBitString_a33b1be41479a042163dfe7177b958729}} 
+void {\bfseries append} (int bit)
+\item 
+int \mbox{\hyperlink{classBitString_ad55eacd59057b9454b6329793947d100}{to\+Integer}} ()
+\item 
+int \mbox{\hyperlink{classBitString_afb34d76a938ef26459980c2522cd2175}{to\+Signed\+Int}} ()
+\item 
+\mbox{\hyperlink{classBitString}{Bit\+String}} \mbox{\hyperlink{classBitString_a3bb3031c02c77ffd7d7d60abd823fc22}{twos\+Complement}} ()
+\item 
+String \mbox{\hyperlink{classBitString_a793be07617b4c97f2d52ea4a339761ea}{to\+Six\+Bit\+Ascii}} ()
+\item 
+\mbox{\Hypertarget{classBitString_a071029a87a9aff76048c09fe8bf13763}\label{classBitString_a071029a87a9aff76048c09fe8bf13763}} 
+\mbox{\hyperlink{classBitString}{Bit\+String}} {\bfseries substring} (int start, int end)
+\item 
+\mbox{\Hypertarget{classBitString_a2101984931d4a2f33936fc863d9fe48b}\label{classBitString_a2101984931d4a2f33936fc863d9fe48b}} 
+int {\bfseries size} ()
+\item 
+\mbox{\Hypertarget{classBitString_a02488607ecb0238b5984e5700a013756}\label{classBitString_a02488607ecb0238b5984e5700a013756}} 
+String {\bfseries to\+String} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classBitString}{Bit\+String}} \mbox{\hyperlink{classBitString_a4b6949c90dc518f8cf9c120d16e721d8}{from\+Number}} (int n)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBitString_a4b6949c90dc518f8cf9c120d16e721d8}\label{classBitString_a4b6949c90dc518f8cf9c120d16e721d8}} 
+\index{BitString@{BitString}!fromNumber@{fromNumber}}
+\index{fromNumber@{fromNumber}!BitString@{BitString}}
+\doxysubsubsection{\texorpdfstring{fromNumber()}{fromNumber()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{classBitString}{Bit\+String}} Bit\+String.\+from\+Number (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Convierte un numero a su representacion binaria tomando solamante 6 bits 
+\begin{DoxyParams}{Parameters}
+{\em n} & un numero entero \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+regresa una cadena binaria 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBitString_ad55eacd59057b9454b6329793947d100}\label{classBitString_ad55eacd59057b9454b6329793947d100}} 
+\index{BitString@{BitString}!toInteger@{toInteger}}
+\index{toInteger@{toInteger}!BitString@{BitString}}
+\doxysubsubsection{\texorpdfstring{toInteger()}{toInteger()}}
+{\footnotesize\ttfamily int Bit\+String.\+to\+Integer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Convierte esta cadena binaria a su representacion en decimal \begin{DoxyReturn}{Returns}
+regresa un entero, que es el valor en decimal de la cadena binaria 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBitString_afb34d76a938ef26459980c2522cd2175}\label{classBitString_afb34d76a938ef26459980c2522cd2175}} 
+\index{BitString@{BitString}!toSignedInt@{toSignedInt}}
+\index{toSignedInt@{toSignedInt}!BitString@{BitString}}
+\doxysubsubsection{\texorpdfstring{toSignedInt()}{toSignedInt()}}
+{\footnotesize\ttfamily int Bit\+String.\+to\+Signed\+Int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+regresa el resultado de convertir esta cadena binaria a un numero entero con signo 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBitString_a793be07617b4c97f2d52ea4a339761ea}\label{classBitString_a793be07617b4c97f2d52ea4a339761ea}} 
+\index{BitString@{BitString}!toSixBitAscii@{toSixBitAscii}}
+\index{toSixBitAscii@{toSixBitAscii}!BitString@{BitString}}
+\doxysubsubsection{\texorpdfstring{toSixBitAscii()}{toSixBitAscii()}}
+{\footnotesize\ttfamily String Bit\+String.\+to\+Six\+Bit\+Ascii (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Convierte esta cadena binaria a su representacion ascii en 6 bits \begin{DoxyReturn}{Returns}
+regresa la cadena ascii 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBitString_a3bb3031c02c77ffd7d7d60abd823fc22}\label{classBitString_a3bb3031c02c77ffd7d7d60abd823fc22}} 
+\index{BitString@{BitString}!twosComplement@{twosComplement}}
+\index{twosComplement@{twosComplement}!BitString@{BitString}}
+\doxysubsubsection{\texorpdfstring{twosComplement()}{twosComplement()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBitString}{Bit\+String}} Bit\+String.\+twos\+Complement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Calcula el complemento a 2 de esta cadena binaria invirtiendo todos sus bits y sumando 1 al resultado \begin{DoxyReturn}{Returns}
+regresa esta misma cadena en complemento a 2 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/Bit\+String.\+java\end{DoxyCompactItemize}

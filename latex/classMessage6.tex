@@ -1,0 +1,104 @@
+\hypertarget{classMessage6}{}\doxysection{Message6 Class Reference}
+\label{classMessage6}\index{Message6@{Message6}}
+
+
+Inheritance diagram for Message6\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=146pt]{classMessage6__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Message6\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=146pt]{classMessage6__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classMessage6_af4f011b54b092aaf49989d94d89c5687}{parse}} (\mbox{\hyperlink{classPayload}{Payload}} payload)  throws N\+M\+E\+A\+Message\+Exception     
+\item 
+void \mbox{\hyperlink{classMessage6_a9c26b93904b82fc7e103aa77d33c21b2}{print}} ()
+\item 
+\mbox{\Hypertarget{classMessage6_a382191d2f81959f59deb27243c851853}\label{classMessage6_a382191d2f81959f59deb27243c851853}} 
+int {\bfseries get\+Seqno} ()
+\item 
+\mbox{\Hypertarget{classMessage6_a174b7a5c957061dffb4d965e6229a95c}\label{classMessage6_a174b7a5c957061dffb4d965e6229a95c}} 
+void {\bfseries set\+Seqno} (int seqno)
+\item 
+\mbox{\Hypertarget{classMessage6_a4e773a4d1fac5706655c648d785689d3}\label{classMessage6_a4e773a4d1fac5706655c648d785689d3}} 
+int {\bfseries get\+Dest\+\_\+mmsi} ()
+\item 
+\mbox{\Hypertarget{classMessage6_a052d66366b089dbc495aa9e7d479eb71}\label{classMessage6_a052d66366b089dbc495aa9e7d479eb71}} 
+void {\bfseries set\+Dest\+\_\+mmsi} (int dest\+\_\+mmsi)
+\item 
+\mbox{\Hypertarget{classMessage6_a0e35b727612809972a9b3211374b9dfb}\label{classMessage6_a0e35b727612809972a9b3211374b9dfb}} 
+int {\bfseries get\+Retransmit} ()
+\item 
+\mbox{\Hypertarget{classMessage6_a93656b7164206b6ac635aed6714df326}\label{classMessage6_a93656b7164206b6ac635aed6714df326}} 
+void {\bfseries set\+Retransmit} (int retransmit)
+\item 
+\mbox{\Hypertarget{classMessage6_a569e16961ffc3b95386395825951501a}\label{classMessage6_a569e16961ffc3b95386395825951501a}} 
+int {\bfseries get\+Dac} ()
+\item 
+\mbox{\Hypertarget{classMessage6_a504028a7cb27ff7c0b4019c077a96735}\label{classMessage6_a504028a7cb27ff7c0b4019c077a96735}} 
+void {\bfseries set\+Dac} (int dac)
+\item 
+\mbox{\Hypertarget{classMessage6_a9f63aeb415908ae02440e69c3e79636a}\label{classMessage6_a9f63aeb415908ae02440e69c3e79636a}} 
+int {\bfseries get\+Fid} ()
+\item 
+\mbox{\Hypertarget{classMessage6_a5cbc46725b08812593d6f62c09b5dcf5}\label{classMessage6_a5cbc46725b08812593d6f62c09b5dcf5}} 
+void {\bfseries set\+Fid} (int fid)
+\item 
+\mbox{\Hypertarget{classMessage6_a3abbbd8d3955bc6e0f4438b1b297c81d}\label{classMessage6_a3abbbd8d3955bc6e0f4438b1b297c81d}} 
+\mbox{\hyperlink{classBitString}{Bit\+String}} {\bfseries get\+Data} ()
+\item 
+\mbox{\Hypertarget{classMessage6_ab1f43f6579785d13d321182313a33d5d}\label{classMessage6_ab1f43f6579785d13d321182313a33d5d}} 
+void {\bfseries set\+Data} (\mbox{\hyperlink{classBitString}{Bit\+String}} data)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMessage6_af4f011b54b092aaf49989d94d89c5687}\label{classMessage6_af4f011b54b092aaf49989d94d89c5687}} 
+\index{Message6@{Message6}!parse@{parse}}
+\index{parse@{parse}!Message6@{Message6}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily void Message6.\+parse (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPayload}{Payload}}}]{payload }\end{DoxyParamCaption}) throws \mbox{\hyperlink{classNMEAMessageException}{N\+M\+E\+A\+Message\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+Obtiene cada campo del mensaje 
+\begin{DoxyParams}{Parameters}
+{\em payload} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classNMEAMessageException}{N\+M\+E\+A\+Message\+Exception}}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \mbox{\hyperlink{classMessage}{Message}}.
+
+\mbox{\Hypertarget{classMessage6_a9c26b93904b82fc7e103aa77d33c21b2}\label{classMessage6_a9c26b93904b82fc7e103aa77d33c21b2}} 
+\index{Message6@{Message6}!print@{print}}
+\index{print@{print}!Message6@{Message6}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Message6.\+print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Imprime por consola los campos del mensaje 
+
+Reimplemented from \mbox{\hyperlink{classMessage}{Message}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/Message6.\+java\end{DoxyCompactItemize}

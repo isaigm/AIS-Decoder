@@ -1,0 +1,64 @@
+\hypertarget{classDecoder}{}\doxysection{Decoder Class Reference}
+\label{classDecoder}\index{Decoder@{Decoder}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDecoder_a47179d79e569aa152a4e99df6a21b967}{Decoder}} ()
+\item 
+\mbox{\hyperlink{classMessage}{Message}} \mbox{\hyperlink{classDecoder_a9aac5e3098983c865e0ae6d7479b1698}{decode}} (String nmea\+Msg)
+\item 
+\mbox{\Hypertarget{classDecoder_a2aeca7138a7ad75f77e449d25770ac30}\label{classDecoder_a2aeca7138a7ad75f77e449d25770ac30}} 
+\mbox{\hyperlink{classMessage}{Message}} {\bfseries decode} (String\+Builder msg)
+\item 
+\mbox{\hyperlink{classMessage}{Message}} \mbox{\hyperlink{classDecoder_aa32dbfb2a8942abbbdd7da623da097ee}{handle\+Multiline\+Sentence}} (String\mbox{[}$\,$\mbox{]} sentences)  throws Format\+Exception     
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDecoder_a47179d79e569aa152a4e99df6a21b967}\label{classDecoder_a47179d79e569aa152a4e99df6a21b967}} 
+\index{Decoder@{Decoder}!Decoder@{Decoder}}
+\index{Decoder@{Decoder}!Decoder@{Decoder}}
+\doxysubsubsection{\texorpdfstring{Decoder()}{Decoder()}}
+{\footnotesize\ttfamily Decoder.\+Decoder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+inicializa las estructuras de datos que se usaran en la decodificacion 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDecoder_a9aac5e3098983c865e0ae6d7479b1698}\label{classDecoder_a9aac5e3098983c865e0ae6d7479b1698}} 
+\index{Decoder@{Decoder}!decode@{decode}}
+\index{decode@{decode}!Decoder@{Decoder}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMessage}{Message}} Decoder.\+decode (\begin{DoxyParamCaption}\item[{String}]{nmea\+Msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Decodifica nmea\+Msg 
+\begin{DoxyParams}{Parameters}
+{\em nmea\+Msg} & mensaje N\+M\+EA \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+regresa un objeto de la clase \mbox{\hyperlink{classMessage}{Message}}, varía dependiendo del tipo de mensaje 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDecoder_aa32dbfb2a8942abbbdd7da623da097ee}\label{classDecoder_aa32dbfb2a8942abbbdd7da623da097ee}} 
+\index{Decoder@{Decoder}!handleMultilineSentence@{handleMultilineSentence}}
+\index{handleMultilineSentence@{handleMultilineSentence}!Decoder@{Decoder}}
+\doxysubsubsection{\texorpdfstring{handleMultilineSentence()}{handleMultilineSentence()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMessage}{Message}} Decoder.\+handle\+Multiline\+Sentence (\begin{DoxyParamCaption}\item[{String\mbox{[}$\,$\mbox{]}}]{sentences }\end{DoxyParamCaption}) throws \mbox{\hyperlink{classFormatException}{Format\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+Para decodificar un mensaje multilínea, es decir, que fue dividido en más de una parte 
+\begin{DoxyParams}{Parameters}
+{\em sentences} & arreglo de sentencias N\+M\+EA \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+un objeto de la clase \mbox{\hyperlink{classMessage}{Message}} 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classFormatException}{Format\+Exception}}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/Decoder.\+java\end{DoxyCompactItemize}
